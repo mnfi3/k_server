@@ -10,7 +10,7 @@ class Order extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'user_id', 'discount_code', 'cost', 'payment_receipt', 'local_time'
+    'user_id', 'kiosk_id', 'discount_code', 'cost', 'payment_receipt', 'local_time'
   ];
 
   public function content(){

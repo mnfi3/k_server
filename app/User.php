@@ -23,7 +23,6 @@ class User extends Authenticatable {
     return $this->belongsToMany('App\Kiosk', 'user_kiosks');
   }
 
-
   public function categories(){
     return $this->hasMany('App\Category');
   }
@@ -34,5 +33,9 @@ class User extends Authenticatable {
 
   public function discounts(){
     return $this->hasMany('App\Discount');
+  }
+
+  public function role(){
+    return $this->hasOne('App\Role');
   }
 }
