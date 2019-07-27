@@ -40,4 +40,5 @@ class ms {
   const KIOSK_LOGOUT_SUCCESS = 'دستگاه با موفقیت از حساب خارج شد';
   const KIOSK_LOGIN_SUCCESS = 'دستگاه با موفقیت وارد حساب شد';
   const KIOSK_LOGIN_FAIL = 'اطلاعات ارسال شده اشتباه می باشد';
+  const KIOSK_USER_NOT_MATCH = 'این کاربر به این دستگاه متعلق نمی باشد';
 }

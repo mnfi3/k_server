@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Api\Crypt\KAuth;
+use App\Http\Controllers\Api\Crypt\KUAuth;
 use App\Http\Controllers\Controller;
 
 use App\User;
@@ -15,8 +17,8 @@ use Lcobucci\JWT\Parser;
 class UserAuthController extends Controller
 {
   public function __construct() {
-    $this->middleware('auth:api', ['except' => ['login']]);
     $this->middleware('kiosk');
+    $this->middleware('auth:api', ['except' => ['login']]);
   }
 
 
@@ -65,11 +67,15 @@ class UserAuthController extends Controller
     ];
 
     if (auth()->attempt($credentials)) {
-      $token = auth()->user()->createToken($request->email)->accessToken;
-      return ws::r(1, ['token' => $token, 'user' => Auth::user()], Response::HTTP_OK, ms::LOGIN_SUCCESS);
-    } else {
-      return ws::r(0,'', Response::HTTP_OK, ms::LOGIN_FAIL_ERROR);
+      if (KUAuth::check(KAuth::kiosk(), Auth::user())) {
+        $token = auth()->user()->createToken($request->email)->accessToken;
+        return ws::r(1, ['user' => Auth::user(), 'token' => $token], Response::HTTP_OK, ms::LOGIN_SUCCESS);
+      }else{
+        return ws::r(0, '', Response::HTTP_OK, ms::KIOSK_USER_NOT_MATCH);
+      }
     }
+
+    return ws::r(0,'', Response::HTTP_OK, ms::LOGIN_FAIL_ERROR);
   }
 
 

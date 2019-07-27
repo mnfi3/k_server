@@ -31,8 +31,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
-  return \App\Http\Controllers\Api\Crypt\MyCrypt::encrypt('sefeefef', '9u8jk434j3098u43');
-  return \App\Http\Controllers\Api\Crypt\MyCrypt::decrypt('sefeefef', '9u8jk434j3098u43');
+
 });
 
 
