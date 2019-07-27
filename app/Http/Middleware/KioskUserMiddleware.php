@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Http\Controllers\Api\Crypt\KAuth;
 use App\Http\Controllers\Api\Crypt\KUAuth;
-use App\Http\Controllers\Api\ms;
-use App\Http\Controllers\Api\ws;
+use App\Http\Controllers\Api\Webservice\ms;
+use App\Http\Controllers\Api\Webservice\ws;
 use Closure;
 
 class KioskUserMiddleware

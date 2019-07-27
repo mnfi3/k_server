@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Api\Crypt\KAuth;
 use App\Http\Controllers\Api\Crypt\KUAuth;
+use App\Http\Controllers\Api\Webservice\ms;
+use App\Http\Controllers\Api\Webservice\ws;
 use App\Http\Controllers\Controller;
 
 use App\User;

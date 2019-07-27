@@ -19,14 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //user auth routes
-Route::post('v1/login', 'Api\UserAuthController@login');
-Route::get('v1/user', 'Api\UserAuthController@user');
-Route::post('v1/logout', 'Api\UserAuthController@logout');
+Route::post('v1/login', 'Api\Auth\UserAuthController@login');
+Route::get('v1/user', 'Api\Auth\UserAuthController@user');
+Route::post('v1/logout', 'Api\Auth\UserAuthController@logout');
 
 
 //kiosk auth
-Route::post('v1/kiosk/login', 'Api\KioskAuthController@login');
-Route::post('v1/kiosk/logout', 'Api\KioskAuthController@logout');
+Route::post('v1/kiosk/login', 'Api\Auth\KioskAuthController@login');
+Route::post('v1/kiosk/logout', 'Api\Auth\KioskAuthController@logout');
 
 
 
