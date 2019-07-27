@@ -6,6 +6,13 @@ namespace App\Http\Controllers\Api\Crypt;
 use App\Kiosk;
 use Illuminate\Http\Request;
 
+
+/*
+ *
+ * this class can auth kiosk with header
+ *
+ *
+ */
 class KAuth {
 
 

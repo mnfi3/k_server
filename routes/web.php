@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,11 +31,8 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
-  $tm = new \App\Http\Controllers\Api\Crypt\TokenManager();
-  echo 'token_key : '.$token_key = $tm->generateTokenKey('mohsen');
-  echo '<br> token : ' . $token = $tm->generateToken($token_key);
-  echo '<br> token_key : ' . $tm->getKeyFromToken($token);
-
+  return \App\Http\Controllers\Api\Crypt\MyCrypt::encrypt('sefeefef', '9u8jk434j3098u43');
+  return \App\Http\Controllers\Api\Crypt\MyCrypt::decrypt('sefeefef', '9u8jk434j3098u43');
 });
 
 

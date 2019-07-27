@@ -18,12 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-//auth routes
-Route::post('v1/login', 'Api\PassportController@login');
-Route::middleware('auth:api')->group(function () {
-  Route::get('v1/user', 'Api\PassportController@user');
-  Route::post('v1/logout', 'Api\PassportController@logout');
-});
+//user auth routes
+Route::post('v1/login', 'Api\UserAuthController@login');
+Route::get('v1/user', 'Api\UserAuthController@user');
+Route::post('v1/logout', 'Api\UserAuthController@logout');
+
+
+//kiosk auth
+Route::post('v1/kiosk/login', 'Api\KioskAuthController@login');
+Route::post('v1/kiosk/logout', 'Api\KioskAuthController@logout');
+
+
+
 
 
 

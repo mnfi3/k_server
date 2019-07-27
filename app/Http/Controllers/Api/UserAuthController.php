@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Lcobucci\JWT\Parser;
 
-class PassportController extends Controller
+class UserAuthController extends Controller
 {
   public function __construct() {
     $this->middleware('auth:api', ['except' => ['login']]);

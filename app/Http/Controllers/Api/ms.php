@@ -37,4 +37,7 @@ class ms {
   //kiosk
   const KIOSK_MUST_LOGIN = 'دستگاه وارد حساب خود نشده است';
   const KIOSK_APP_KEY_ERROR = 'کلید ارسالی اشتباه است';
+  const KIOSK_LOGOUT_SUCCESS = 'دستگاه با موفقیت از حساب خارج شد';
+  const KIOSK_LOGIN_SUCCESS = 'دستگاه با موفقیت وارد حساب شد';
+  const KIOSK_LOGIN_FAIL = 'اطلاعات ارسال شده اشتباه می باشد';
 }
