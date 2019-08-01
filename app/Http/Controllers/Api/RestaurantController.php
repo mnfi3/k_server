@@ -20,16 +20,20 @@ class RestaurantController extends Controller
     $restaurant = Auth::user();
     $categories = $restaurant->categories;
     foreach ($categories as $category){
-      $category->products;
+      foreach ($category->products as $product){
+        $product->sides;
+      }
     }
 
     return ws::r(1, $categories);
   }
 
+
+
   public function discountValidate(Request $request){
     $code = $request->discount;
     $now = date('Y-m-d H:i:s');
-    $discount = Discount::where('user_id', '=', \auth()->user())->where('code', '=', $code)->where('started_at', '<=', $now)->where('invoked_at', '>=', $now)->first();
+    $discount = Discount::where('user_id', '=', Auth::user()->id)->where('code', '=', $code)->where('started_at', '<=', $now)->where('invoked_at', '>=', $now)->first();
     if($discount != null){
       return ws::r(1, $discount, 200, ms::DISCOUNT_VALID);
     }else{

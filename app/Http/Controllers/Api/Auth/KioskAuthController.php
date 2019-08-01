@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\Crypt\KAuth;
 use App\Http\Controllers\Api\Crypt\TokenManager;
+use App\Http\Controllers\Api\Webservice\ms;
+use App\Http\Controllers\Api\Webservice\ws;
 use App\Kiosk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class KioskAuthController extends Controller

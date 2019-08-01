@@ -10,8 +10,11 @@ class Product extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'user_id', 'category_id', 'name', 'price', 'image'
+    'user_id', 'category_id', 'name', 'price', 'd_price', 'description', 'image'
   ];
 
 
+  public function sides(){
+    return $this->belongsToMany('App\Side', 'product_sides');
+  }
 }

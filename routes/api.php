@@ -29,6 +29,14 @@ Route::post('v1/kiosk/login', 'Api\Auth\KioskAuthController@login');
 Route::post('v1/kiosk/logout', 'Api\Auth\KioskAuthController@logout');
 
 
+Route::post('/test1', function (Request $request){
+  $json = new \Psy\Util\Json();
+  header("Accept:application/json");
+  $json->name = $request->name;
+  $json->family = $request->family;
+  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server");
+//  return json_encode($json, JSON_UNESCAPED_UNICODE);
+});
 
 
 

@@ -31,7 +31,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
-  return date('Y-m-d H:i:s');
 });
 
 
