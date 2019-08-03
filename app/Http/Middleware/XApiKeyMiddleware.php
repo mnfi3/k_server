@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\Webservice\ms;
 use App\Http\Controllers\Api\Webservice\ws;
 use Closure;
 
-class KioskAuthMiddleware
+class XApiKeyMiddleware
 {
     /**
      * Handle an incoming request.
@@ -22,12 +22,6 @@ class KioskAuthMiddleware
         return ws::r(0, '', 200, ms::KIOSK_APP_KEY_ERROR);
       }
 
-
-      KAuth::init($request);
-      if (KAuth::kiosk() == null) {
-        return ws::r(0, '', 200, ms::KIOSK_MUST_LOGIN);
-      }else{
-        return $next($request);
-      }
+      return $next($request);
     }
 }

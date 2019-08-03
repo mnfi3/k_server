@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'kiosk' => \App\Http\Middleware\KioskAuthMiddleware::class,
+        'x_api_key' => \App\Http\Middleware\XApiKeyMiddleware::class,
         'kiosk_user' => \App\Http\Middleware\KioskUserMiddleware::class
     ];
 

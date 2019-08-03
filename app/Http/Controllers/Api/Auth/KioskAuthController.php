@@ -16,6 +16,7 @@ class KioskAuthController extends Controller
 {
   public function __construct() {
     $this->middleware('kiosk', ['except' => ['login']]);
+    $this->middleware('x_api_key', ['only' => ['login']]);
   }
 
 
@@ -47,6 +48,6 @@ class KioskAuthController extends Controller
     $kiosk = KAuth::kiosk();
     $kiosk->token = '';
     $kiosk->save();
-    return ws::r(1, '', 200, ms::KIOSK_LOGOUT_SUCCESS);
+    return ws::r(1, [''], 200, ms::KIOSK_LOGOUT_SUCCESS);
   }
 }

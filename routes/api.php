@@ -34,7 +34,17 @@ Route::post('/test1', function (Request $request){
   header("Accept:application/json");
   $json->name = $request->name;
   $json->family = $request->family;
-  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server");
+  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server (post method)");
+//  return json_encode($json, JSON_UNESCAPED_UNICODE);
+});
+
+Route::get('/test2', function (Request $request){
+  $json = new \Psy\Util\Json();
+  header("Accept:application/json");
+  $json->name = $request->name;
+  $json->family = $request->family;
+  $json->header = $request->header('x-api-key');
+  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server (get method)");
 //  return json_encode($json, JSON_UNESCAPED_UNICODE);
 });
 
@@ -43,6 +53,7 @@ Route::post('/test1', function (Request $request){
 
 
 
-Route::get('/test', function (){
-  return 'hello from api auth';
-})->middleware('auth:api');
+Route::get('/token', function (){
+  $tm = new \App\Http\Controllers\Api\Crypt\TokenManager();
+  return $tm->generateToken("a2lvc2sxMTU2NDgzMzYwNg==");
+});
