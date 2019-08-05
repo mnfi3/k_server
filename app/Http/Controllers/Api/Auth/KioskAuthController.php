@@ -43,6 +43,10 @@ class KioskAuthController extends Controller
   }
 
 
+  public function loginCheck(){
+    return ws::r(1, ['kiosk' => KAuth::kiosk()], 200, ms::KIOSK_IS_LOGGEDIN);
+  }
+
 
   public function logout(Request $request){
     $kiosk = KAuth::kiosk();

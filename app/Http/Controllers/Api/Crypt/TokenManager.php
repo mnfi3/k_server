@@ -10,7 +10,7 @@ class TokenManager {
   private $token_key = '9u8jk434j3098u43';
 
   public function generateTokenKey($user_name){
-    $str = $user_name . time();
+    $str = date('Y-m-d h:i:s') . $user_name . time();
     return base64_encode($str);
   }
 

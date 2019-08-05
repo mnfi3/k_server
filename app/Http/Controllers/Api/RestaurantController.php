@@ -25,7 +25,7 @@ class RestaurantController extends Controller
       }
     }
 
-    return ws::r(1, $categories);
+    return ws::r(1, ['data' => $categories]);
   }
 
 

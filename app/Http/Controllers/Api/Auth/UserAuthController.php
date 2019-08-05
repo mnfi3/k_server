@@ -94,8 +94,6 @@ class UserAuthController extends Controller
     }
 //    Auth::logout();
     return ws::r(1,'', Response::HTTP_OK, ms::LOGOUT_SUCCESS);
-
-
   }
 
 

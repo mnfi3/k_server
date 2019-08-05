@@ -26,7 +26,16 @@ Route::post('v1/logout', 'Api\Auth\UserAuthController@logout');
 
 //kiosk auth
 Route::post('v1/kiosk/login', 'Api\Auth\KioskAuthController@login');
+Route::get('v1/kiosk/login/check', 'Api\Auth\KioskAuthController@loginCheck');
 Route::post('v1/kiosk/logout', 'Api\Auth\KioskAuthController@logout');
+
+//kiosk api
+Route::get('v1/kiosk/users', 'Api\KioskController@users');
+
+
+
+
+
 
 
 Route::post('/test1', function (Request $request){
@@ -55,5 +64,5 @@ Route::get('/test2', function (Request $request){
 
 Route::get('/token', function (){
   $tm = new \App\Http\Controllers\Api\Crypt\TokenManager();
-  return $tm->generateToken("a2lvc2sxMTU2NDgzMzYwNg==");
+  return $tm->generateToken("MjAxOS0wOC0wNCAwNDo0Mjo1MGtpb3NrMTE1NjQ5MjA3NzA=");
 });
