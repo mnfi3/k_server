@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Crypt\KUAuth;
 use App\Http\Controllers\Api\Webservice\ms;
 use App\Http\Controllers\Api\Webservice\ws;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class KioskUserMiddleware
 {

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToSides extends Migration
+class CreateProductDessertsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddTypeToSides extends Migration
      */
     public function up()
     {
-        Schema::table('sides', function (Blueprint $table) {
-          $table->string('type')->nullable();
+        Schema::create('product_desserts', function (Blueprint $table) {
+          $table->increments('id');
+          $table->integer('product_id');
+          $table->integer('dessert_id');
+          $table->timestamps();
+          $table->softDeletes();
         });
     }
 
@@ -25,8 +29,6 @@ class AddTypeToSides extends Migration
      */
     public function down()
     {
-        Schema::table('sides', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('product_desserts');
     }
 }

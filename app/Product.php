@@ -14,7 +14,7 @@ class Product extends Model
   ];
 
 
-  public function sides(){
-    return $this->belongsToMany('App\Side', 'product_sides');
+  public function desserts(){
+    return $this->belongsToMany('App\Dessert', 'product_desserts');
   }
 }

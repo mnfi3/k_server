@@ -33,18 +33,18 @@ Route::post('v1/kiosk/logout', 'Api\Auth\KioskAuthController@logout');
 Route::get('v1/kiosk/users', 'Api\KioskController@users');
 
 
+//restaurant apis
+Route::get('v1/restaurant/products', 'Api\RestaurantController@products');
 
 
 
 
 
-Route::post('/test1', function (Request $request){
-  $json = new \Psy\Util\Json();
-  header("Accept:application/json");
-  $json->name = $request->name;
-  $json->family = $request->family;
-  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server (post method)");
-//  return json_encode($json, JSON_UNESCAPED_UNICODE);
+
+
+
+Route::get('/test1', function (Request $request){
+
 });
 
 Route::get('/test2', function (Request $request){

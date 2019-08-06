@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class RestaurantController extends Controller
 {
   public function __construct() {
+    $this->middleware('auth:api');
     $this->middleware('kiosk_user');
   }
 
@@ -21,11 +22,11 @@ class RestaurantController extends Controller
     $categories = $restaurant->categories;
     foreach ($categories as $category){
       foreach ($category->products as $product){
-        $product->sides;
+        $product->desserts;
       }
     }
 
-    return ws::r(1, ['data' => $categories]);
+    return ws::r(1, ['products' => $categories]);
   }
 
 
