@@ -32,13 +32,22 @@ class RestaurantController extends Controller
 
 
   public function discountValidate(Request $request){
-    $code = $request->discount;
+    $code = $request->discount_code;
     $now = date('Y-m-d H:i:s');
-    $discount = Discount::where('user_id', '=', Auth::user()->id)->where('code', '=', $code)->where('started_at', '<=', $now)->where('invoked_at', '>=', $now)->first();
+    $discount = Discount::where('user_id', '=', Auth::user()->id)->where('code', '=', $code)
+      ->where('started_at', '<=', $now)
+      ->where('invoked_at', '>=', $now)
+      ->where('count', '>', 0)->first();
+
     if($discount != null){
       return ws::r(1, $discount, 200, ms::DISCOUNT_VALID);
     }else{
       return ws::r(0, '', 200, ms::DISCOUNT_INVALID);
     }
+  }
+
+
+  public function shop(Request $request){
+
   }
 }

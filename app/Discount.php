@@ -10,6 +10,11 @@ class Discount extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'user_id', 'code', 'percent', 'started_at', 'invoked_at'
+    'user_id', 'code', 'percent', 'count', 'started_at', 'invoked_at'
   ];
+
+
+  public function orders(){
+    return $this->hasMany('App\Order');
+  }
 }

@@ -35,6 +35,7 @@ Route::get('v1/kiosk/users', 'Api\KioskController@users');
 
 //restaurant apis
 Route::get('v1/restaurant/products', 'Api\RestaurantController@products');
+Route::post('v1/restaurant/discount-validate', 'Api\RestaurantController@discountValidate');
 
 
 
@@ -43,9 +44,15 @@ Route::get('v1/restaurant/products', 'Api\RestaurantController@products');
 
 
 
-Route::get('/test1', function (Request $request){
 
+
+Route::get('/kiosk-token', function (Request $request){
+ $tm = new \App\Http\Controllers\Api\Crypt\TokenManager();
+ $token = $tm->generateToken(\App\Kiosk::find(1)->token);
+ return \App\Http\Controllers\Api\Webservice\ws::r(1, ['token' => $token]);
 });
+
+
 
 Route::get('/test2', function (Request $request){
   $json = new \Psy\Util\Json();
