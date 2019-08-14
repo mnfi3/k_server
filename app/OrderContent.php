@@ -10,11 +10,16 @@ class OrderContent extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'order_id', 'product_id', 'count', 'cost'
+    'order_id', 'product_id', 'count', 'cost', 'dessert_size'
   ];
 
   public function product(){
     return $this->hasOne('App\Product');
+  }
+
+
+  public function desserts(){
+    return $this->hasMany('App\OrderContentDessert');
   }
 
 }
