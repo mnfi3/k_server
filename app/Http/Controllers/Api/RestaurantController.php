@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Discount;
+use App\Http\Controllers\Api\Crypt\KAuth;
 use App\Http\Controllers\Api\Webservice\ms;
 use App\Http\Controllers\Api\Webservice\ws;
+use App\Order;
+use App\OrderContent;
+use App\OrderContentDessert;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +19,7 @@ class RestaurantController extends Controller
   public function __construct() {
     $this->middleware('auth:api');
     $this->middleware('kiosk_user');
+//    $this->middleware('kiosk', ['only'=>['order']]);
   }
 
 
@@ -47,7 +53,53 @@ class RestaurantController extends Controller
   }
 
 
-  public function shop(Request $request){
+  public function order(Request $request){
+    $data = json_decode($request->order);
+    $dateTime = new DateTime($data->time);
+    $time =  $dateTime->format('Y-m-d H:i:s');
 
+    $kiosk_id = KAuth::kiosk()->id;
+    $order = Order::where('kiosk_id', '=', $kiosk_id)->where('local_time', '=', $time)->first();
+    if ($order != null){
+      return ws::r(1, ['order_id' => $order->local_id], 200, ms::ORDER_INSERTED_RETRY);
+    }
+    
+    $order = Order::create([
+      'local_id' => $data->id,
+      'user_id' => $data->restaurant_id,
+      'kiosk_id' => KAuth::kiosk()->id,
+      'discount_id' => $data->discount_id,
+      'cost' => $data->cost,
+      'd_cost' => $data->d_cost,
+      'payment_receipt' => $data->payment_receipt,
+      'local_time' => $time,
+    ]);
+
+    $order_items = $data->items;
+    foreach ($order_items as $item){
+      $order_content = OrderContent::create([
+        'order_id' => $order->id,
+        'product_id' => $item->product_id,
+        'count' => $item->count,
+        'cost' => $item->cost,
+        'dessert_size' => $item->dessert_size,
+      ]);
+
+      $desserts = $item->desserts;
+      foreach ($desserts as $dessert){
+        $order_content_dessert = OrderContentDessert::create([
+          'order_content_id' => $order_content->id,
+          'dessert_id' => $dessert->dessert_id,
+          'price' => $dessert->price,
+        ]);
+      }
+    }
+
+
+    return ws::r(1, ['order_id' => $order->local_id], 200, ms::ORDER_INSERTED);
   }
+
+
+
+
 }

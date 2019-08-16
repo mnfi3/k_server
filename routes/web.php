@@ -31,6 +31,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
+//  echo  date('Y-m-d h:i:s');
+  $dateTime = new DateTime('20190815151358');
+  echo $dateTime->format('Y-m-d H:i:s');
 });
 
 
