@@ -63,7 +63,13 @@ class RestaurantController extends Controller
     if ($order != null){
       return ws::r(1, ['order_id' => $order->local_id], 200, ms::ORDER_INSERTED_RETRY);
     }
-    
+
+    $discount = Discount::find($data->discount_id);
+    if ($discount != null){
+      $discount->count = $discount->count - 1;
+      $discount->save();
+    }
+
     $order = Order::create([
       'local_id' => $data->id,
       'user_id' => $data->restaurant_id,
