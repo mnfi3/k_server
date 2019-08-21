@@ -48,7 +48,8 @@ class ms {
   const DISCOUNT_VALID = 'کد تخفیف معتبر می باشد';
   const DISCOUNT_INVALID = 'کد تخفیف معتبر نمی باشد';
 
-
+  //orders
   const ORDER_INSERTED = 'سفارش ثبت شد';
+  const ORDERS_INSERTED = 'تمامی سفارشات ثبت شدند';
   const ORDER_INSERTED_RETRY = 'سفارش قبلا ثبت شده است';
 }

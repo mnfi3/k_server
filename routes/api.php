@@ -36,7 +36,8 @@ Route::get('v1/kiosk/users', 'Api\KioskController@users');
 //restaurant apis
 Route::get('v1/restaurant/products', 'Api\RestaurantController@products');
 Route::post('v1/restaurant/discount-validate', 'Api\RestaurantController@discountValidate');
-Route::post('v1/restaurant/order', 'Api\RestaurantController@order');
+//Route::post('v1/restaurant/order', 'Api\RestaurantController@order');
+Route::post('v1/restaurant/orders', 'Api\RestaurantController@orders');
 
 
 
@@ -56,13 +57,6 @@ Route::get('/kiosk-token', function (Request $request){
 
 
 Route::get('/test2', function (Request $request){
-  $json = new \Psy\Util\Json();
-  header("Accept:application/json");
-  $json->name = $request->name;
-  $json->family = $request->family;
-  $json->header = $request->header('x-api-key');
-  return \App\Http\Controllers\Api\Webservice\ws::r(1, $json, 200, "ok from server (get method)");
-//  return json_encode($json, JSON_UNESCAPED_UNICODE);
 });
 
 
