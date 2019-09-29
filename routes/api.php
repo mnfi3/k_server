@@ -31,6 +31,7 @@ Route::post('v1/kiosk/logout', 'Api\Auth\KioskAuthController@logout');
 
 //kiosk api
 Route::get('v1/kiosk/users', 'Api\KioskController@users');
+Route::get('v1/kiosk/products', 'Api\KioskController@products');
 
 
 //restaurant apis

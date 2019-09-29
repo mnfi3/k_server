@@ -21,4 +21,22 @@ class KioskController extends Controller
     return ws::r(1, ['users' => $users]);
   }
 
+
+
+
+  public function products(){
+    $kiosk = KAuth::kiosk();
+    $users = $kiosk->users;
+    foreach ($users as $user){
+      $user->validDiscounts;
+      $categories = $user->categories;
+      foreach ($categories as $category){
+        foreach ($category->products as $product){
+          $product->desserts;
+        }
+      }
+    }
+
+    return ws::r(1, ['data' => $users]);
+  }
 }

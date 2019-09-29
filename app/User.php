@@ -35,6 +35,13 @@ class User extends Authenticatable {
     return $this->hasMany('App\Discount');
   }
 
+  public function validDiscounts(){
+    $now = date('Y-m-d H:i:s');
+    return $this->hasMany('App\Discount')->where('started_at', '<=', $now)
+      ->where('invoked_at', '>=', $now)
+      ->where('count', '>', 0);
+  }
+
   public function role(){
     return $this->hasOne('App\Role');
   }
