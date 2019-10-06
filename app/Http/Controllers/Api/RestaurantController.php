@@ -148,7 +148,6 @@ class RestaurantController extends Controller
           'product_id' => $item->product_id,
           'count' => $item->count,
           'cost' => $item->cost,
-          'dessert_size' => $item->dessert_size,
         ]);
 
         $desserts = $item->desserts;

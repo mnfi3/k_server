@@ -18,9 +18,7 @@ class CreateDessertsTable extends Migration
           $table->integer('user_id')->nullable();
           $table->string('name')->nullable();
           $table->string('type')->nullable();
-          $table->integer('price_small')->nullable();
-          $table->integer('price_medium')->nullable();
-          $table->integer('price_large')->nullable();
+          $table->integer('price')->nullable();
           $table->string('image')->nullable();
           $table->timestamps();
           $table->charset = 'utf8';
