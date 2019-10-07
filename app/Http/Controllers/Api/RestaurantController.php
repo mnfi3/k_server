@@ -137,8 +137,14 @@ class RestaurantController extends Controller
         'discount_id' => $data->discount_id,
         'cost' => $data->cost,
         'd_cost' => $data->d_cost,
-        'payment_receipt' => $data->payment_receipt,
         'local_time' => $time,
+        'pan' => $data->pan,
+        'req_id' => $data->req_id,
+        'serial_transaction' => $data->serial_transaction,
+        'terminal_no' => $data->terminal_no,
+        'trace_number' => $data->trace_number,
+        'transaction_date' => $data->transaction_date,
+        'transaction_time' => $data->transaction_time,
       ]);
 
       $order_items = $data->items;

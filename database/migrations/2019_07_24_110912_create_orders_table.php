@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->integer('cost')->nullable();
-            $table->string('payment_receipt')->nullable();
             $table->timestamp('local_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
