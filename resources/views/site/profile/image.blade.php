@@ -33,11 +33,11 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/profile/image/insert')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-body">
                                         <div class="form-group relative">
-                                            <input type="file" name="filename[]" class="form-control">
+                                            <input type="file" name="image" class="form-control" required>
                                             <label>عکس</label>
                                             <div class="input-group round">
                                                 <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
@@ -55,10 +55,7 @@
                                             <i class="icon-cloud-upload"></i>
                                             بارگذاری
                                         </button>
-                                        <button type="submit" name="submit" class="btn btn-danger mr-5 btn-round">
-                                            <i class="icon-trash"></i>
-                                            حذف
-                                        </button>
+
                                     </div>
                                 </form>
                             </div>

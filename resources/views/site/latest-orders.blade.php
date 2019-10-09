@@ -49,75 +49,74 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
+                                    <th>شماره سفارش</th>
                                     {{--<th>آیکون</th>--}}
-                                    <th>نام</th>
+                                    <th>جزئیات</th>
                                     <th>زمان</th>
                                     <th>قیمت</th>
+                                    <th>بیرون بر</th>
                                     <th>وضعیت</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @php($i=0)
+                                @foreach($orders as $order)
                                 <tr>
-                                    <td> 1 <span class="new-order">سفارش جدید </span></td>
+                                    <td> {{++$i}} <span class="new-order">سفارش جدید </span></td>
+                                    <td class="text-black" >{{$order->order_number}}</td>
                                     <td class="text-black" style="max-width: 280px">
 
                                         <table class="table table-hover" id="data-table">
+                                            <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>نام</th>
+                                                <th>تعداد</th>
+                                            </tr>
+                                            </thead>
                                             <tbody>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>1</td>
-                                                <td class="text-black" style="max-width: 160px"> پیتزا سالامون</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>2</td>
-                                                <td class="text-black" style="max-width: 160px"> پیتزا پپرونی</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                            </tr>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>3</td>
-                                                <td class="text-black" style="max-width: 160px">دوغ</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    2 عدد
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>4</td>
-                                                <td class="text-black" style="max-width: 160px"> سیب زمینی پنیری </td>
-                                                <td>
-                                                    بزرگ
-                                                </td>
-                                                <td>
-                                                    1 عدد
-                                                </td>
-                                            </tr>
-                                            </tbody>
+                                            @php($j=0)
+                                            @foreach($order->content as $order_content)
+                                                <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
+                                                    <td>{{++$j}}</td>
+                                                    <td class="text-black" style="max-width: 160px">{{$order_content->product->name}} </td>
+                                                    <td>{{$order_content->count}} عدد</td>
+                                                </tr>
+                                            @foreach($order_content->desserts as $dessert_item)
+                                                <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
+                                                    <td>{{++$j}}</td>
+                                                    <td class="text-black" style="max-width: 160px">{{$dessert_item->dessert->name}}</td>
+                                                    <td>
+                                                        {{$order_content->count}} عدد
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            @endforeach
                                         </table>
 
 
 
 
                                     </td>
-                                    <td class="text-black" >1397/06/20 , 18:30</td>
-                                    <td class="text-black" >35900 تومان</td>
+                                    @php($date = new \App\Http\Controllers\Util\Pdate())
+                                    @php($d = explode(' ', $order->local_time)[0])
+                                    @php($time = explode(' ', $order->local_time)[1])
+
+
+                                    <td class="text-black" >{{$time}} --- {{$date->toPersian($d, 'Y/m/d')}}  </td>
+                                    <td class="text-black" >{{number_format($order->d_cost)}} تومان</td>
+                                    @if($order->is_out == 0)
+                                    <td class="text-black" >خیر</td>
+                                    @else
+                                    <td class="text-black" >بله</td>
+                                    @endif
                                     <td>
-                                        <a class="btn btn-sm del-btn "  href="#">
-                                            آماده تحویل
+                                        <a class="btn btn-sm del-btn "  href="{{url('/restaurant/panel/order/deliver', $order->id)}}">
+                                            تحویل داده شد
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </table>
                         </div><!-- /.table-responsive -->
                         <div class="pull-left">

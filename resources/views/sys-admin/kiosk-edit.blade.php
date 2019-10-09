@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
-
 <head>
     <title>پنل مدیریت</title>
     <meta charset="utf-8">
@@ -16,7 +14,8 @@
     @include('include.js')
 </head>
 <body class="active-ripple theme-blue fix-header sidebar-extra ">
-@include('include.nav-bar')
+@include('sys-admin.include.nav-bar')
+
 <div id="page-content">
     <div class="row">
         <div class="col-md-12">
@@ -26,8 +25,8 @@
                         <div class="portlet-heading">
                             <div class="portlet-title">
                                 <h3 class="title">
-                                    <i class="icon-fire"></i>
-                                    ویرایش {{$dessert->name}}
+                                    <i class="icon-basket"></i>
+                                    ویرایش اطلاعات کیوسک
                                 </h3>
                             </div>
                             <div class="buttons-box">
@@ -41,64 +40,74 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="{{url('/restaurant/panel/dessert/update')}}" method="post" enctype="multipart/form-data">
+                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
-                                    <input type="hidden" name="dessert_id" value="{{$dessert->id}}">
                                     <div class="form-body">
 
                                         <div class="form-group">
-                                            <label>دسته بندی</label>
+                                            <label>نام کیوسک</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <select class="form-control" name="type">
-                                                    <option value="d1" @if($dessert->type == 'd1') selected @endif >مخلفات</option>
-                                                    <option value="d2" @if($dessert->type == 'd2') selected @endif>همراه غذا </option>
-                                                </select>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="نام رستوران">
                                             </div>
                                         </div>
-
-
-
                                         <div class="form-group">
-                                            <label>نام </label>
+                                            <label>رستوران مربوطه</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="{{$dessert->name}}" placeholder="نام وارد شود" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group relative">
-                                            <input type="file" name="image" class="form-control" >
-                                            <label>عکس</label>
-                                            <div class="input-group round">
-                                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
-                                                <span class="input-group-btn input-group-sm">
-                                                <button type="button" class="btn btn-info">
-                                                    <i class="icon-picture"></i>
-                                                    آپلود عکس
-                                                </button>
-                                            </span>
+                                                <select class="form-control" name="status">
+                                                    <option value="1" >رستوران شماره 1</option>
+                                                    <option value="1" >رستوران شماره 2</option>
+                                                    <option value="1" >رستوران شماره 3</option>
+                                                    <option value="1" >رستوران شماره 4</option>
+                                                </select>
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
 
+                                        {{--<div class="form-group relative">--}}
+                                        {{--<input type="file" name="filename[]" class="form-control">--}}
+                                        {{--<label>عکس</label>--}}
+                                        {{--<div class="input-group round">--}}
+                                        {{--<input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">--}}
+                                        {{--<span class="input-group-btn input-group-sm">--}}
+                                        {{--<button type="button" class="btn btn-info">--}}
+                                        {{--<i class="icon-picture"></i>--}}
+                                        {{--آپلود عکس--}}
+                                        {{--</button>--}}
+                                        {{--</span>--}}
+                                        {{--</div><!-- /.input-group -->--}}
+                                        {{--</div><!-- /.form-group -->--}}
                                         <div class="form-group">
-                                            <label>قیمت (تومان)</label>
+                                            <label>نام کاربری کیوسک</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="number" name="price" class="form-control" value="{{$dessert->price}}" placeholder="به تومان" required>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
                                             </div>
                                         </div>
-
-
-                                    </div>
-
-                                    <div class="form-actions">
+                                        <div class="form-group">
+                                            <label>رمز عبور</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="password" name="name" class="form-control" value="" placeholder="اجباری">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>client key کیوسک</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
+                                            </div>
+                                        </div>
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>
                                             ذخیره

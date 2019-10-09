@@ -134,6 +134,8 @@ class RestaurantController extends Controller
         'local_id' => $data->id,
         'user_id' => $data->restaurant_id,
         'kiosk_id' => KAuth::kiosk()->id,
+        'is_delivered' => 0,
+        'is_out' => 0,
         'discount_id' => $data->discount_id,
         'cost' => $data->cost,
         'd_cost' => $data->d_cost,

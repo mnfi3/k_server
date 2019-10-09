@@ -2068,7 +2068,7 @@ body.modal-open .navbar-fixed-top{right: 17px}
 .fa-flip-horizontal{display: inline-block}
 .shadow{
     box-shadow: 0 0 8px 10px #c9c9c9;
-    -webkit-box-shadow: 0 0 10px 10px #ca7146;
+    -webkit-box-shadow: 0 0 10px 2px #ca7146;
     -moz-box-shadow:  0 0 8px 0px #c9c9c9;
 }
 

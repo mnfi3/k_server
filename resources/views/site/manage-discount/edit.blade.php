@@ -41,8 +41,9 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/discount/update')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="discount_id" value="{{$discount->id}}">
                                     <div class="form-body">
 
                                         <div class="form-group">
@@ -51,7 +52,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="مثل : gorosne123">
+                                                <input type="text" name="code" disabled  class="form-control" value="{{$discount->code}}"  required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -60,7 +61,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control start-day " value="" placeholder="مثل : 1398/06/23" required>
+                                                <input type="text" name="started_at" class="form-control start-day " value="{{$discount->started_at}}" placeholder="مثل : 1398/06/23" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -69,7 +70,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control start-day " value="" placeholder="مثل : 1398/06/30" required>
+                                                <input type="text" name="invoked_at" class="form-control start-day " value="{{$discount->invoked_at}}" placeholder="مثل : 1398/06/30" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -78,7 +79,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="number" name="name" class="form-control" value="" placeholder="تعداد کاربرانی که میتوانند از این کد استفاده کنند">
+                                                <input type="number" name="count" class="form-control" value="{{$discount->count}}" placeholder="تعداد کاربرانی که میتوانند از این کد استفاده کنند" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -87,7 +88,11 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="number" name="name" class="form-control" value="" placeholder="">
+                                                <select class="form-control" name="percent" required>
+                                                    @for($i=0;$i<91;$i++)
+                                                        <option value="{{$i}}" @if($discount->percent == $i) selected @endif >{{$i}}</option>
+                                                    @endfor
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +100,7 @@
                                     <div class="form-actions">
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>
-                                            ثبت تغییرات
+                                            ذخیره
                                         </button>
                                     </div><!-- /.form-actions -->
                                 </form>
@@ -111,6 +116,7 @@
         <script src="{{ asset('plugins/data-table/js/dataTables.bootstrap.js') }}"></script>
         <script src="{{ asset('js/pages/datatable.js') }}"></script>
         <link href="{{ asset('plugins/data-table/css/dataTables.bootstrap.css') }}" rel="stylesheet">
+        @include('include.date-picker-js')
 
     </div>
 </div>

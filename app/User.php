@@ -11,7 +11,7 @@ class User extends Authenticatable {
   use HasApiTokens,Notifiable;
 
   protected $fillable = [
-    'name', 'phone', 'address', 'image', 'email', 'password',
+    'type', 'role', 'name', 'phone', 'address', 'image', 'email', 'password',
   ];
 
   protected $hidden = [
@@ -19,16 +19,10 @@ class User extends Authenticatable {
   ];
 
 
+
+  //public functions
   public function kiosks(){
     return $this->belongsToMany('App\Kiosk', 'user_kiosks');
-  }
-
-  public function categories(){
-    return $this->hasMany('App\Category');
-  }
-
-  public function products(){
-    return $this->hasMany('App\Product');
   }
 
   public function discounts(){
@@ -42,7 +36,23 @@ class User extends Authenticatable {
       ->where('count', '>', 0);
   }
 
-  public function role(){
-    return $this->hasOne('App\Role');
+
+
+  //restaurant functions
+
+  public function restaurantOrders(){
+    return $this->hasMany('App\Order');
+  }
+
+  public function categories(){
+    return $this->hasMany('App\Category');
+  }
+
+  public function products(){
+    return $this->hasMany('App\Product');
+  }
+
+  public function desserts(){
+    return $this->hasMany('App\Dessert');
   }
 }

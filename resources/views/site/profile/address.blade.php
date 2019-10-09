@@ -33,7 +33,7 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/profile/address/update')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-body">
 
@@ -43,7 +43,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-map"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="">
+                                                <input type="text" name="address" class="form-control" value="{{$user->address}}">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -52,7 +52,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="">
+                                                <input type="text" name="phone" class="form-control" value="{{$user->phone}}">
                                             </div>
                                         </div>
 
@@ -64,10 +64,8 @@
                                             <i class="icon-check"></i>
                                             ذخیره
                                         </button>
-                                        <button type="submit" name="submit" class="btn btn-danger btn-round">
-                                            <i class="fa fa-edit"></i>
-                                            ویرایش
-                                        </button>
+
+
                                     </div><!-- /.form-actions -->
                                 </form>
                             </div>

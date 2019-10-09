@@ -1,22 +1,15 @@
-
-
 <div class="navbar navbar-fixed-top" id="main-navbar">
     <div class="header-right">
         <a href="/" class="logo-con">
-            <h1 class="text-center" style="color: white;font-weight: 600" id="panel-title"> پنل مدیریت </h1>
+            <h1 class="text-center" style="color: white;font-weight: 600" id="panel-title"> پنل رئیس </h1>
         </a>
-    </div><!-- /.header-right -->
+    </div>
     <div class="header-left">
         <div class="top-bar">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#" class="btn" id="toggle-sidebar" >
                         <span></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="btn open" id="toggle-sidebar-top">
-                        <i class="icon-user-following"></i>
                     </a>
                 </li>
             </ul>
@@ -26,11 +19,10 @@
                         <i class="icon-size-fullscreen"></i>
                     </a>
                 </li>
-
                 <li class="dropdown dropdown-user">
                     <a href="#" class="dropdown-toggle dropdown-hover" data-toggle="dropdown">
-                        <img src="{{ asset(auth()->user()->image) }}" style="width: 40px; height: 40px" alt="عکس پرفایل" class="img-circle img-responsive">
-                        <span class="text-black" style="color: black">{{auth()->user()->name}}</span>
+                        <img src="{{ asset('images/user/48.png') }}" alt="عکس پرفایل" class="img-circle img-responsive">
+                        <span class="text-black" style="color: black">محسن فرجامی</span>
                         <i class="icon-arrow-down text-danger"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -40,27 +32,14 @@
                                 <i class="icon-power text-danger"></i>
                                 خروج
                             </a>
-                            <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
+                            <form id="logout-form" action="" method="" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
                     </ul>
                 </li>
-            </ul><!-- /.navbar-left -->
-        </div><!-- /.top-bar -->
-    </div><!-- /.header-left -->
+            </ul>
+        </div>
+    </div>
 </div>
-<script>
-  var isopen = true;
-  $("#toggle-sidebar").click(function(){
-    if (isopen){
-      $('#panel-title').css("font-size","1.2rem");
-      $('#panel-title').innerHTML = "";
-    }else {
-      $('#panel-title').css("font-size","1.9rem");
-    }
-    isopen = !isopen;
-  });
-</script>
-
-@include('include.header')
+@include('sys-admin.include.header')

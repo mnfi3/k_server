@@ -42,8 +42,9 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/category/update')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="category_id" value="{{$category->id}}">
                                     <div class="form-body">
 
                                         <div class="form-group">
@@ -52,15 +53,15 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="">
+                                                <input type="text" name="name" class="form-control" value="{{$category->name}}" placeholder="">
                                             </div>
                                         </div>
 
                                         <div class="form-group relative">
-                                            <input type="file" name="filename[]" class="form-control">
+                                            <input type="file" name="image" class="form-control">
                                             <label>عکس</label>
                                             <div class="input-group round">
-                                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
+                                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید" >
                                                 <span class="input-group-btn input-group-sm">
                                                 <button type="button" class="btn btn-info">
                                                     <i class="icon-picture"></i>

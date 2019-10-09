@@ -33,7 +33,7 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/profile/password/update')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-body">
 
@@ -43,7 +43,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-lock"></i>
                                                 </span>
-                                                <input type="password" name="name" class="form-control" value="">
+                                                <input type="password" name="old_pass" class="form-control" value="" required placeholder="رمز فعلی خود را وارد کنید">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -52,7 +52,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-lock"></i>
                                                 </span>
-                                                <input type="password" name="name" class="form-control" value="">
+                                                <input type="password" name="new_pass1" class="form-control" value="" required placeholder="رمز جدید را وارد کنید (حداقل 6 گکاراکتر)">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -61,7 +61,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-lock"></i>
                                                 </span>
-                                                <input type="password" name="name" class="form-control" value="">
+                                                <input type="password" name="new_pass2" class="form-control" value="" required placeholder="تکرار رمز جدید ">
                                             </div>
                                         </div>
                                     </div>
@@ -70,6 +70,12 @@
                                             <i class="fa fa-edit"></i>
                                             ویرایش
                                         </button>
+
+                                        @if(\Illuminate\Support\Facades\Session::get('fail') != null)
+                                        <label class="text-danger " style="text-align: center"> {{\Illuminate\Support\Facades\Session::get('fail')}}</label>
+                                        @elseif(\Illuminate\Support\Facades\Session::get('success') != null)
+                                        <label class="text-success " style="text-align: center">  {{\Illuminate\Support\Facades\Session::get('success')}}</label>
+                                        @endif
                                     </div><!-- /.form-actions -->
                                 </form>
                             </div>

@@ -42,76 +42,69 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::get('/login', function () {
-  return view('site.auth.login');
-});
-
-Route::get('/', function () {
-  return view('site.latest-orders');
-});
-
-//Manage Products
-
-Route::get('/manage-products', function () {
-  return view('site.manage-product');
-});
-
-Route::get('/manage-foods', function () {
-  return view('site.manage-products.food');
-});
-
-Route::get('/manage-dessert', function () {
-  return view('site.manage-products.dessert');
-});
-
-Route::get('/dessert-edit', function () {
-  return view('site.manage-products.dessert-edit');
-});
-
-Route::get('/food-edit', function () {
-  return view('site.manage-products.food-edit');
-});
-
-Route::get('/categories', function () {
-  return view('site.manage-products.categories');
-});
-
-Route::get('/category-edit', function () {
-  return view('site.manage-products.category-edit');
-});
+Route::get('/restaurant/panel', 'Panel\RestaurantPanelController@index');
+Route::get('/restaurant/panel/order/deliver/{id}', 'Panel\RestaurantPanelController@orderDelivered');
+Route::get('/restaurant/panel/manage-foods', 'Panel\RestaurantPanelController@products');
+Route::post('/restaurant/panel/insert/food', 'Panel\RestaurantPanelController@insertProduct');
+Route::get('/restaurant/panel/food-edit/{id}', 'Panel\RestaurantPanelController@productEdit');
+Route::post('/restaurant/panel/food-update', 'Panel\RestaurantPanelController@productUpdate');
+Route::post('/restaurant/panel/food-delete', 'Panel\RestaurantPanelController@productDelete');
+Route::get('/restaurant/panel/categories', 'Panel\RestaurantPanelController@categories');
+Route::post('/restaurant/panel/category/insert', 'Panel\RestaurantPanelController@categoryInsert');
+Route::get('/restaurant/panel/category-edit/{id}', 'Panel\RestaurantPanelController@categoryEdit');
+Route::post('/restaurant/panel/category/update', 'Panel\RestaurantPanelController@categoryUpdate');
+Route::post('/restaurant/panel/category/delete', 'Panel\RestaurantPanelController@categoryDelete');
+Route::get('/restaurant/panel/manage-dessert', 'Panel\RestaurantPanelController@desserts');
+Route::post('/restaurant/panel/dessert/insert', 'Panel\RestaurantPanelController@dessertInsert');
+Route::get('/restaurant/panel/dessert-edit/{id}', 'Panel\RestaurantPanelController@dessertEdit');
+Route::post('/restaurant/panel/dessert/update', 'Panel\RestaurantPanelController@dessertUpdate');
+Route::post('/restaurant/panel/dessert/delete', 'Panel\RestaurantPanelController@dessertDelete');
 
 //Reports
-
-Route::get('/today-report',function (){
-  return view('site.report.today');
-});
-
-Route::get('/all-report',function (){
-  return view('site.report.all');
-});
+Route::get('/restaurant/panel/today-report', 'Panel\RestaurantPanelController@todayReport');
+Route::get('/restaurant/panel/all-report', 'Panel\RestaurantPanelController@report');
 
 //Discount Code
-
-Route::get('/discount-code',function(){
-  return view('site.manage-discount.discount-code');
-});
-
-Route::get('/discount-edit',function(){
-  return view('site.manage-discount.edit');
-});
+Route::get('/restaurant/panel/discount-code', 'Panel\RestaurantPanelController@discount');
+Route::post('/restaurant/panel/discount/insert', 'Panel\RestaurantPanelController@discountInsert');
+Route::get('/restaurant/panel/discount-edit/{id}', 'Panel\RestaurantPanelController@discountEdit');
+Route::post('/restaurant/panel/discount/update', 'Panel\RestaurantPanelController@discountUpdate');
+Route::post('/restaurant/panel/discount/delete', 'Panel\RestaurantPanelController@discountDelete');
 
 //Profile
+Route::get('/restaurant/panel/profile/image', 'Panel\RestaurantPanelController@profileImage');
+Route::post('/restaurant/panel/profile/image/insert', 'Panel\RestaurantPanelController@profileImageInsert');
+Route::get('/restaurant/panel/profile/address', 'Panel\RestaurantPanelController@address');
+Route::post('/restaurant/panel/profile/address/update', 'Panel\RestaurantPanelController@addressUpdate');
 
-Route::get('/profile/image',function(){
-  return view('site.profile.image');
+Route::get('/restaurant/panel/profile/password', 'Panel\RestaurantPanelController@password');
+Route::post('/restaurant/panel/profile/password/update', 'Panel\RestaurantPanelController@passwordUpdate');
+
+
+
+
+
+
+
+
+
+
+//system admin sections
+
+Route::get('/admin/home',function(){
+  return view('sys-admin.home');
 });
 
-Route::get('/profile/address',function(){
-  return view('site.profile.address');
+Route::get('/admin/kiosk-edit',function(){
+  return view('sys-admin.kiosk-edit');
 });
 
-Route::get('/profile/password',function(){
-  return view('site.profile.password');
+Route::get('/admin/res',function(){
+  return view('sys-admin.res');
+});
+
+Route::get('/admin/res-edit',function(){
+  return view('sys-admin.res-edit');
 });
 
 

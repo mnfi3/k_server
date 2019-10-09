@@ -41,7 +41,7 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/restaurant/panel/category/insert')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-body">
 
@@ -56,7 +56,7 @@
                                         </div>
 
                                         <div class="form-group relative">
-                                            <input type="file" name="filename[]" class="form-control">
+                                            <input type="file" name="image" class="form-control" required>
                                             <label>عکس</label>
                                             <div class="input-group round">
                                                 <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
@@ -120,12 +120,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @php($i=0)
+                                @foreach($categories as $category)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{++$i}}</td>
                                     {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
-                                    <td class="text-black" >نوشیدنی های سرد</td>
+                                    <td class="text-black" >{{$category->name}}</td>
                                     <td>
-                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
+                                        <form action="{{url('/restaurant/panel/category/delete')}}"  method="post" onsubmit="return confirm('آیا مطمئن هستید؟')" >
+                                            <input type="hidden" name="category_id" value="{{$category->id}}">
                                             @csrf
                                             <button class="btn btn-sm del-btn"  type="submit">
                                                 حذف
@@ -134,68 +137,12 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm del-edit "  href="{{url('/category-edit')}}">
+                                        <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/category-edit', $category->id)}}">
                                             ویرایش
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
-                                    <td contenteditable="true" >فست فود</td>
-                                    <td>
-                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
-                                            @csrf
-                                            <button class="btn btn-sm del-btn"  type="submit">
-                                                حذف
-                                            </button>
-
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-sm del-edit "  href="{{url('/category-edit')}}">
-                                            ویرایش
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
-                                    <td contenteditable="true" >پیش غذا</td>
-                                    <td>
-                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
-                                            @csrf
-                                            <button class="btn btn-sm del-btn"  type="submit">
-                                                حذف
-                                            </button>
-
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-sm del-edit "  href="{{url('/category-edit')}}">
-                                            ویرایش
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
-                                    <td contenteditable="true" >غذاهی دریایی</td>
-                                    <td>
-                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
-                                            @csrf
-                                             <button class="btn btn-sm del-btn"  type="submit">
-                                                   حذف
-                                             </button>
-
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-sm del-edit "  href="{{url('/category-edit')}}">
-                                            ویرایش
-                                        </a>
-                                    </td>
-                                </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div><!-- /.table-responsive -->

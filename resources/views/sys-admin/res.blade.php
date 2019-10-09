@@ -12,13 +12,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}">
 
-    <link type="text/css" rel="stylesheet" href="{{asset('css/persian-datepicker.min.css')}}" />
-
     @include('include.css')
     @include('include.js')
 </head>
 <body class="active-ripple theme-blue fix-header sidebar-extra ">
-@include('include.nav-bar')
+@include('sys-admin.include.nav-bar')
+
 <div id="page-content">
     <div class="row">
         <div class="col-md-12">
@@ -28,8 +27,8 @@
                         <div class="portlet-heading">
                             <div class="portlet-title">
                                 <h3 class="title">
-                                    <i class="icon-fire"></i>
-                                    افزودن کد تخفیف
+                                    <i class="icon-basket"></i>
+                                    افزودن رستوران جدید
                                 </h3>
                             </div>
                             <div class="buttons-box">
@@ -43,62 +42,71 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="{{url('/restaurant/panel/discount/insert')}}" method="post" enctype="multipart/form-data">
+                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-body">
 
                                         <div class="form-group">
-                                            <label>کد </label>
+                                            <label>نام رستوران</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="code"  class="form-control" value="" placeholder="مثل : yalda98" required>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="نام رستوران">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label> تاریخ شروع</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <input type="text" name="started_at" class="form-control start-day " value="" placeholder="مثل : 1398/06/23" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label> تاریخ پایان</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <input type="text" name="invoked_at" class="form-control start-day " value="" placeholder="مثل : 1398/06/30" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>تعداد کاربران</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <input type="number" name="count" class="form-control" value="" placeholder="تعداد کاربرانی که میتوانند از این کد استفاده کنند" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price">درصد تخفیف</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <select class="form-control" name="percent" required>
-                                                    @for($i=0;$i<91;$i++)
-                                                        <option value="{{$i}}" >{{$i}}</option>
-                                                    @endfor
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-actions">
+                                        <div class="form-group">
+                                            <label>آدرس رستوران</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="آدرس رستوران">
+                                            </div>
+                                        </div>
+
+                                        {{--<div class="form-group relative">--}}
+                                        {{--<input type="file" name="filename[]" class="form-control">--}}
+                                        {{--<label>عکس</label>--}}
+                                        {{--<div class="input-group round">--}}
+                                        {{--<input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">--}}
+                                        {{--<span class="input-group-btn input-group-sm">--}}
+                                        {{--<button type="button" class="btn btn-info">--}}
+                                        {{--<i class="icon-picture"></i>--}}
+                                        {{--آپلود عکس--}}
+                                        {{--</button>--}}
+                                        {{--</span>--}}
+                                        {{--</div><!-- /.input-group -->--}}
+                                        {{--</div><!-- /.form-group -->--}}
+                                        <div class="form-group">
+                                            <label>ایمیل رستوران</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="email" name="name" class="form-control" value="" placeholder="ایمیل رستوران">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>تلفن رستوران</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>رمز عبور</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="password" name="name" class="form-control" value="" placeholder="رمز عبور رستوران">
+                                            </div>
+                                        </div>
+
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>
                                             ذخیره
@@ -117,8 +125,8 @@
                 <div class="portlet-heading">
                     <div class="portlet-title">
                         <h3 class="title">
-                            <i class="icon-user"></i>
-                            لیست کدهای تخفیف
+                            <i class="icon-basket"></i>
+                            لیست رستوران ها
                         </h3>
                     </div>
                     <div class="buttons-box">
@@ -142,45 +150,75 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    <th> کد</th>
-                                    <th> درصد تخفیف</th>
-                                    <th>تعداد باقی مانده</th>
-                                    <th>ویرایش</th>
+                                    {{--<th>آیکون</th>--}}
+                                    <th>نام رستوران</th>
                                     <th>حذف</th>
+                                    <th>ویرایش و اطلاعات</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php($i=0)
-                                @foreach($discounts as $discount)
                                 <tr>
-                                    <td>{{++$i}}</td>
+                                    <td>1</td>
                                     {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
-                                    <td class="text-black" >{{$discount->code}}</td>
-                                    <td class="text-black" >{{$discount->percent}}</td>
-                                    <td class="text-black" >{{$discount->count}}</td>
-
+                                    <td class="text-black" >رستوران شماره 1</td>
                                     <td>
-                                        <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/discount-edit', $discount->id)}}">
-                                            ویرایش
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <form action="{{url('/restaurant/panel/discount/delete')}}" method="post" onsubmit="return confirm('آیا مطمئن هستید؟')" >
+                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
                                             @csrf
-                                            <input type="hidden" name="discount_id" value="{{$discount->id}}">
                                             <button class="btn btn-sm del-btn"  type="submit">
                                                 حذف
                                             </button>
 
                                         </form>
                                     </td>
+                                    <td>
+                                        <a class="btn btn-sm del-edit "  href="{{url('/admin/res-edit')}}">
+                                            ویرایش
+                                        </a>
+                                    </td>
                                 </tr>
-                                @endforeach
+                                <tr>
+                                    <td>1</td>
+                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
+                                    <td contenteditable="true" >رستوران شماره2</td>
+                                    <td>
+                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
+                                            @csrf
+                                            <button class="btn btn-sm del-btn"  type="submit">
+                                                حذف
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm del-edit "  href="{{url('/admin/res-edit')}}">
+                                            ویرایش
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
+                                    <td contenteditable="true" >رستوران شماره 3</td>
+                                    <td>
+                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
+                                            @csrf
+                                            <button class="btn btn-sm del-btn"  type="submit">
+                                                حذف
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm del-edit "  href="{{url('/admin/res-edit')}}">
+                                            ویرایش
+                                        </a>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div><!-- /.table-responsive -->
                         <div class="pull-left">
-                            {{ $discounts->links() }}
+                            {{--{{ $currencyList->links() }}--}}
                         </div>
                         <div class="clearfix"></div>
                     </div><!-- /.portlet-body -->
@@ -193,7 +231,7 @@
         <script src="{{ asset('plugins/data-table/js/dataTables.bootstrap.js') }}"></script>
         <script src="{{ asset('js/pages/datatable.js') }}"></script>
         <link href="{{ asset('plugins/data-table/css/dataTables.bootstrap.css') }}" rel="stylesheet">
-        @include('include.date-picker-js')
+
     </div>
 </div>
 </div>
