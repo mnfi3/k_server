@@ -1,73 +1,94 @@
-@extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+<head>
+    <title>پنل مدیریت</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="پنل مدیریت">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}">
+    @include('include.css')
+    @include('include.js')
+</head>
+<body class="active-ripple theme-blue fix-header sidebar-extra ">
+<div class="fixed-modal-bg" style="background: url('{{asset('/images/bg/login-bg.jpg')}}') center top;"></div>
+<div class="modal-page shadow" style="border-radius: 5px;background-color:rgba(0, 0, 0, 0.81) ">
+    <div class="container-fluid">
+        <div class="row " style="direction: rtl!important;">
+            <div class="col-md-12 ">
+                <div class="logo-con m-t-10 m-b-10">
+                    <h1 class="text-center text-white" style="font-size: 2.9rem;font-weight: 800;color: white">ورود به پنل مدیریت</h1>
+                </div>
+                <hr>
+                <form id="form" class="m-t-30 m-b-30" method="POST" action="{{ route('login') }}" role="form">
+                    {{ csrf_field() }}
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                    <div class="form-group">
+                        <label for="email" class="sr-only">رایانامه</label>
+                        <div class="input-group round">
+                                    <span class="input-group-addon">
+                                        <i class="icon-envelope"></i>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+                            <input id="email" type="email" class="form-control ltr text-left" placeholder="نام کاربری" name="email" value="{{ old('email') }}" required autofocus>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        </div><!-- /.input-group -->
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div><!-- /.form-group -->
+                    <div class="form-group">
+                        <label for="password" class="sr-only">رمز عبور</label>
+                        <div class="input-group round">
+                                    <span class="input-group-addon">
+                                        <i class="icon-key"></i>
+                                    </span>
+                            <input id="password" type="password" class="form-control  ltr text-left" placeholder="رمز عبور" name="password" required>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+                            @endif
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                        </div><!-- /.input-group -->
+                            <span class="help-block">
+                                        <strong></strong>
+                                    </span>
+                    </div><!-- /.form-group -->
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                    <button class="btn btn-info btn-round btn-block" type="submit">
+                        <i class="icon-paper-plane font-lg"></i>
+                        ورود
+                    </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                           رمز عبور خود را فراموش کرده ام
+                        </a>
+                    @endif
+
+                </form>
+
             </div>
         </div>
     </div>
 </div>
-@endsection
+</div>
+<script src="{{ asset('plugins/data-table/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/data-table/js/dataTables.bootstrap.js') }}"></script>
+<script src="{{ asset('js/pages/datatable.js') }}"></script>
+<link href="{{ asset('plugins/data-table/css/dataTables.bootstrap.css') }}" rel="stylesheet">
+
+
+</body>
+
+
+

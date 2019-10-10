@@ -27,6 +27,8 @@ class HomeController extends Controller
       $user = Auth::user();
       if($user->role == 'restaurant-admin'){
         return redirect(url('/restaurant/panel'));
+      }elseif ($user->role == 'super-admin'){
+        return redirect(url('/admin/home'));
       }
 //        return view('home');
     }

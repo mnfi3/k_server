@@ -32,7 +32,7 @@
                                 <i class="icon-power text-danger"></i>
                                 خروج
                             </a>
-                            <form id="logout-form" action="" method="" style="display: none;">
+                            <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>

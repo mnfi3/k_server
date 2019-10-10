@@ -172,6 +172,10 @@
                                 @endforeach
                             </table>
                         </div>
+                        <div class="pull-left">
+                            {{ $orders->links() }}
+                        </div>
+                        <div class="clearfix"></div>
                     </div><!-- /.portlet-body -->
                 </div><!-- /.portlet -->
             </div><!-- /.col-md-12 -->

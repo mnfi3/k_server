@@ -11,15 +11,11 @@ use App\Http\Controllers\Util\Uploader;
 use App\Order;
 use App\Product;
 use App\ProductDessert;
-use DateTime;
-use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
 
 class RestaurantPanelController extends Controller
 {
@@ -287,16 +283,24 @@ class RestaurantPanelController extends Controller
     $from_date = Pnum::toLatin($request->from_date);
     $to_date = Pnum::toLatin($request->to_date);
     if (strlen($from_date) < 5 || strlen($to_date) < 5) {
-      $from_date = date('Y-m-d H:i:s');
-      $to_date =  date('Y-m-d H:i:s');
+      $from_date = date('Y-m-d');
+      $to_date =  date('Y-m-d');
     }else {
       $date = new Pdate();
       $from_date = $date->toGregorian($from_date);
       $to_date = $date->toGregorian($to_date);
-    }
-    return $from_date;
 
-    $orders = Order::where('local_time', '>', $from_date)->where('local_time', '<', $to_date)->where('is_delivered', '=', 1)->paginate(1);
+    }
+    $date = new \DateTime($from_date);
+    $date->setTime(0, 0, 0);
+    $from_date = $date->format('Y-m-d H:i:s');
+    $date = new \DateTime($to_date);
+    $date->setTime(23, 59, 59);
+    $to_date = $date->format('Y-m-d H:i:s');
+
+//    return $from_date;
+
+    $orders = Order::where('local_time', '>=', $from_date)->where('local_time', '<=', $to_date)->where('is_delivered', '=', 1)->paginate(40);
 
 //    $orders = Order::hydrate($orders);
     return view('site.report.all', compact('orders', 'from_date', 'to_date'))->with('from_date', $from_date)->with('to_date', $to_date);
@@ -406,12 +410,5 @@ class RestaurantPanelController extends Controller
 
 
 
-  private function arrayPaginator($array, $request) {
-    $page = Input::get('page', 1);
-    $perPage = 1;
-    $offset = ($page * $perPage) - $perPage;
 
-    return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
-      ['path' => $request->url(), 'query' => $request->query()]);
-  }
 }

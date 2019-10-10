@@ -40,8 +40,9 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/admin/kiosk/update')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="kiosk_id" value="{{$kiosk->id}}">
                                     <div class="form-body">
 
                                         <div class="form-group">
@@ -50,68 +51,52 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="نام رستوران">
+                                                <input type="text" name="name" class="form-control" value="{{$kiosk->name}}" placeholder="نام " required>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>رستوران مربوطه</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <select class="form-control" name="status">
-                                                    <option value="1" >رستوران شماره 1</option>
-                                                    <option value="1" >رستوران شماره 2</option>
-                                                    <option value="1" >رستوران شماره 3</option>
-                                                    <option value="1" >رستوران شماره 4</option>
-                                                </select>
-                                            </div><!-- /.input-group -->
-                                        </div><!-- /.form-group -->
 
-                                        {{--<div class="form-group relative">--}}
-                                        {{--<input type="file" name="filename[]" class="form-control">--}}
-                                        {{--<label>عکس</label>--}}
-                                        {{--<div class="input-group round">--}}
-                                        {{--<input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">--}}
-                                        {{--<span class="input-group-btn input-group-sm">--}}
-                                        {{--<button type="button" class="btn btn-info">--}}
-                                        {{--<i class="icon-picture"></i>--}}
-                                        {{--آپلود عکس--}}
-                                        {{--</button>--}}
-                                        {{--</span>--}}
-                                        {{--</div><!-- /.input-group -->--}}
-                                        {{--</div><!-- /.form-group -->--}}
+
                                         <div class="form-group">
                                             <label>نام کاربری کیوسک</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
+                                                <input type="text" name="user_name" class="form-control" disabled value="{{$kiosk->user_name}}" placeholder="اجباری" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>رمز عبور</label>
+                                            <label>client key </label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="password" name="name" class="form-control" value="" placeholder="اجباری">
+                                                <input type="text" name="client_key" class="form-control" value="{{$kiosk->client_key}}" placeholder="اجباری" required>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
-                                            <label>client key کیوسک</label>
+                                            <label>رمز عبور (اگر میخواهید رمز عبور تغییر نکند چیزی در این بخش وارد نکنید)</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
+                                                <input type="password" name="password" class="form-control" value="" placeholder="اگر میخواهید رمز عبور تغییر نکند چیزی در این بخش وارد نکنید" >
+
+
                                             </div>
                                         </div>
+
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>
                                             ذخیره
                                         </button>
+
+                                        @if(\Illuminate\Support\Facades\Session::get('mess') != null)
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{Illuminate\Support\Facades\Session::get('mess')}}</strong>
+                                            </span>
+                                        @endif
                                     </div><!-- /.form-actions -->
                                 </form>
                             </div>

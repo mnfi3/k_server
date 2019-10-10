@@ -12,6 +12,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('/images/favicon.png') }}">
 
+    <link type="text/css" rel="stylesheet" href="{{asset('css/persian-datepicker.min.css')}}" />
+
     @include('include.css')
     @include('include.js')
 </head>

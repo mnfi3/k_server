@@ -97,6 +97,23 @@
                                                 <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label>کیوسک مربوطه</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <select class="form-control" name="status">
+                                                    <option value="1" >کیوسک 1</option>
+                                                    <option value="1" >کیوسک 2</option>
+                                                    <option value="1" >کیوسک 3</option>
+                                                    <option value="1" >کیوسک 4</option>
+                                                </select>
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+
+
                                         <div class="form-group">
                                             <label>رمز عبور</label>
                                             <div class="input-group round">

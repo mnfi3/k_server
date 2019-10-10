@@ -91,13 +91,12 @@ Route::post('/restaurant/panel/profile/password/update', 'Panel\RestaurantPanelC
 
 //system admin sections
 
-Route::get('/admin/home',function(){
-  return view('sys-admin.home');
-});
+Route::get('/admin/home', 'Admin\AdminController@index');
+Route::post('/admin/kiosk/insert', 'Admin\AdminController@kioskInsert');
+Route::get('/admin/kiosk-edit/{id}', 'Admin\AdminController@kioskEdit');
+Route::post('/admin/kiosk/update', 'Admin\AdminController@kioskUpdate');
 
-Route::get('/admin/kiosk-edit',function(){
-  return view('sys-admin.kiosk-edit');
-});
+
 
 Route::get('/admin/res',function(){
   return view('sys-admin.res');
