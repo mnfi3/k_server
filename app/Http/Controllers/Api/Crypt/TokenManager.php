@@ -13,8 +13,8 @@ class TokenManager {
 
   public function generateTokenKey($user_name){
     while (1) {
-      $str = $this->generateRandomString(). '-' . $user_name . '-' . date('Y-m-d h:i:s');
-      $token = base64_encode($str);
+      $str = $this->generateRandomString(). '--' . $user_name . '--' . date('Y-m-d h:i:s');
+      $token = MyCrypt::encrypt($str, $this->token_key);
       $kiosk = Kiosk::where('token', '=', $token)->first();
       if ($kiosk == null) break;
     }

@@ -98,13 +98,10 @@ Route::post('/admin/kiosk/update', 'Admin\AdminController@kioskUpdate');
 
 
 
-Route::get('/admin/res',function(){
-  return view('sys-admin.res');
-});
-
-Route::get('/admin/res-edit',function(){
-  return view('sys-admin.res-edit');
-});
+Route::get('/admin/res', 'Admin\AdminController@restaurants');
+Route::post('/admin/res/insert', 'Admin\AdminController@restaurantInsert');
+Route::get('/admin/res-edit/{id}', 'Admin\AdminController@restaurantEdit');
+Route::post('/admin/res/update', 'Admin\AdminController@restaurantUpdate');
 
 
 

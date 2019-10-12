@@ -42,8 +42,9 @@
                         </div>
                         <div class="portlet-body">
                             <div class="portlet-body">
-                                <form role="form" action="InsertNewDCurrency" method="post" enctype="multipart/form-data">
+                                <form role="form" action="{{url('/admin/res/update')}}" method="post" enctype="multipart/form-data" onsubmit="return confirm('آیا مطمئن هستید؟')">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
                                     <div class="form-body">
 
                                         <div class="form-group">
@@ -52,7 +53,17 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="نام رستوران">
+                                                <input type="text" name="name" class="form-control" value="{{$restaurant->name}}" placeholder="نام رستوران" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>ایمیل رستوران</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <input type="email" name="email" class="form-control" disabled value="{{$restaurant->email}}" placeholder="ایمیل رستوران" required>
                                             </div>
                                         </div>
 
@@ -62,40 +73,86 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="آدرس رستوران">
+                                                <input type="text" name="address" class="form-control" value="{{$restaurant->address}}" placeholder="آدرس رستوران" required>
                                             </div>
                                         </div>
+
+                                        <div class="form-group relative">
+                                            <input type="file" name="image" class="form-control" >
+                                            <label>عکس</label>
+                                            <div class="input-group round">
+                                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید" >
+                                                <span class="input-group-btn input-group-sm">
+                                        <button type="button" class="btn btn-info">
+                                        <i class="icon-picture"></i>
+                                        آپلود عکس
+                                        </button>
+                                        </span>
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+
+
                                         <div class="form-group">
-                                            <label>ایمیل رستوران</label>
+                                            <label>تلفن رستوران</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="email" name="name" class="form-control" value="" placeholder="ایمیل رستوران">
+                                                <input type="text" name="phone" class="form-control" value="{{$restaurant->phone}}" placeholder="اجباری" required>
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label>کیوسک مربوطه</label>
+                                            <div class="input-group round">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-info"></i>
+                                                </span>
+                                                <select class="form-control" name="kiosk_id" required>
+                                                    @foreach($kiosks as $kiosk)
+                                                        <option value="{{$kiosk->id}}"
+                                                        @if($restaurant->kiosks != null)
+                                                            @if($restaurant->kiosks[0]->id == $kiosk->id)
+                                                                selected
+                                                            @endif
+                                                        @endif
+
+                                                            >{{$kiosk->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+
+                                        <label class="text-danger" >اگر می خواهید پسورد ها تغییر نکنند خالی بگذارید</label>
+
                                         <div class="form-group">
                                             <label>رمز عبور</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="password" name="name" class="form-control" value="" placeholder="رمز عبور رستوران">
+                                                <input type="password" name="password" class="form-control" value="" placeholder="رمز عبور رستوران">
                                             </div>
                                         </div>
+
                                         <div class="form-group">
-                                            <label>client key رستوران</label>
+                                            <label>پسورد اپلیکیشن (این رمز هنگام ورود کیوسک استفاده خواهد شد)</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="name" class="form-control" value="" placeholder="اجباری">
+                                                <input type="password" name="app_password" class="form-control" value="" placeholder="رمز عبور اپلیکیشن">
                                             </div>
                                         </div>
+
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>
                                             ذخیره
                                         </button>
+
+                                        @if(\Illuminate\Support\Facades\Session::get('mess') != null)
+                                            <label>{{\Illuminate\Support\Facades\Session::get('mess')}}</label>
+                                        @endif
                                     </div><!-- /.form-actions -->
                                 </form>
                             </div>
@@ -132,253 +189,71 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped" id="فروش" style="direction: rtl !important;">
+                            <table class="table table-hover table-striped" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    <th>جزئیات سفارش</th>
-                                    <th>تاریخ</th>
-                                    <th>مبلغ</th>
+                                    <th>جزئیات</th>
+                                    <th>زمان</th>
+                                    <th>قیمت</th>
+                                    <th>قیمت با تخفیف(پرداخت شده)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-black" style="max-width: 280px">
+                                @php($i=0)
+                                @foreach($orders as $order)
+                                    <tr>
+                                        <td class="text-black"> {{++$i}} </td>
+                                        {{--                                        <td class="text-black" >{{$order->order_number}}</td>--}}
+                                        <td class="text-black" style="max-width: 280px">
 
-                                        <table class="table table-hover" id="data-table">
-                                            <tbody>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>1</td>
-                                                <td class="text-black"> پیتزا سالامون پیتزا سالامون </td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    20,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>2</td>
-                                                <td class="text-black" style="max-width: 160px"> پیتزا پپرونی</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    160,000 تومان
-                                                </td>
-
-                                            </tr>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>3</td>
-                                                <td class="text-black" style="max-width: 160px">دوغ</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    2 عدد
-                                                </td>
-                                                <td>
-                                                    100,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>4</td>
-                                                <td class="text-black" style="max-width: 160px"> سیب زمینی پنیری</td>
-                                                <td>
-                                                    بزرگ
-                                                </td>
-                                                <td>
-                                                    1 عدد
-                                                </td>
-                                                <td>
-                                                    15,230 تومان
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                            <table class="table table-hover" id="data-table">
+                                                <thead>
+                                                <tr>
+                                                    <th>ردیف</th>
+                                                    <th>نام</th>
+                                                    <th>تعداد</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @php($j=0)
+                                                @foreach($order->content as $order_content)
+                                                    <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
+                                                        <td>{{++$j}}</td>
+                                                        <td class="text-black" style="max-width: 160px">{{$order_content->product->name}} </td>
+                                                        <td>{{$order_content->count}} عدد</td>
+                                                    </tr>
+                                                    @foreach($order_content->desserts as $dessert_item)
+                                                        <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
+                                                            <td>{{++$j}}</td>
+                                                            <td class="text-black" style="max-width: 160px">{{$dessert_item->dessert->name}}</td>
+                                                            <td>
+                                                                {{$order_content->count}} عدد
+                                                            </td>
+                                                        </tr>
+                                                @endforeach
+                                                @endforeach
+                                            </table>
 
 
 
 
-                                    </td>
-                                    <td>
-                                        1398/06/24,12:49
-                                    </td>
-                                    <td>
-                                        38,600 تومان
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="text-black" style="max-width: 280px">
-
-                                        <table class="table table-hover" id="data-table">
-                                            <tbody>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>1</td>
-                                                <td class="text-black"> پیتزا سالامون پیتزا سالامون </td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    20,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>2</td>
-                                                <td class="text-black" style="max-width: 160px"> پیتزا پپرونی</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    160,000 تومان
-                                                </td>
-
-                                            </tr>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>3</td>
-                                                <td class="text-black" style="max-width: 160px">دوغ</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    2 عدد
-                                                </td>
-                                                <td>
-                                                    100,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>4</td>
-                                                <td class="text-black" style="max-width: 160px"> سیب زمینی پنیری</td>
-                                                <td>
-                                                    بزرگ
-                                                </td>
-                                                <td>
-                                                    1 عدد
-                                                </td>
-                                                <td>
-                                                    15,230 تومان
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        </td>
+                                        @php($date = new \App\Http\Controllers\Util\Pdate())
+                                        @php($d = explode(' ', $order->local_time)[0])
+                                        @php($time = explode(' ', $order->local_time)[1])
 
 
-
-
-                                    </td>  <td>
-                                        1398/06/24,15:49
-                                    </td>
-                                    <td>
-                                        68,600 تومان
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="text-black" style="max-width: 280px">
-
-                                        <table class="table table-hover" id="data-table">
-                                            <tbody>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>1</td>
-                                                <td class="text-black"> پیتزا سالامون پیتزا سالامون </td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    20,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>2</td>
-                                                <td class="text-black" style="max-width: 160px"> پیتزا پپرونی</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    5 عدد
-                                                </td>
-                                                <td>
-                                                    160,000 تومان
-                                                </td>
-
-                                            </tr>
-                                            <tr class="" style="background-color: #ff5c1a">
-                                                <td>3</td>
-                                                <td class="text-black" style="max-width: 160px">دوغ</td>
-                                                <td>
-                                                    متوسط
-                                                </td>
-                                                <td>
-                                                    2 عدد
-                                                </td>
-                                                <td>
-                                                    100,000 تومان
-                                                </td>
-                                            </tr>
-                                            <tr style="background-color: #ffcf14">
-                                                <td>4</td>
-                                                <td class="text-black" style="max-width: 160px"> سیب زمینی پنیری</td>
-                                                <td>
-                                                    بزرگ
-                                                </td>
-                                                <td>
-                                                    1 عدد
-                                                </td>
-                                                <td>
-                                                    15,230 تومان
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-
-
-
-                                    </td>  <td>
-                                        1398/06/24,19:21
-                                    </td>
-                                    <td>
-                                        26,000 تومان
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td class="text-black" style="max-width: 160px">
-
-                                    </td>
-                                    <td>
-                                        <strong style="color: #ff0004">مجموع :</strong>
-                                    </td>
-                                    <td>
-                                        263,000 تومان
-                                    </td>
-                                </tr>
-                                </tfoot>
+                                        <td class="text-black" >{{$time}} --- {{$date->toPersian($d, 'Y/m/d')}}  </td>
+                                        <td class="text-black" >{{number_format($order->cost)}} تومان</td>
+                                        <td class="text-black" >{{number_format($order->d_cost)}} تومان</td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
 
                         <div class="pull-left">
-                            {{--{{ $currencyList->links() }}--}}
+                            {{ $orders->links() }}
                         </div>
                         <div class="clearfix"></div>
                     </div><!-- /.portlet-body -->

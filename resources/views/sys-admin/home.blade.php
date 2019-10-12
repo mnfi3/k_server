@@ -150,7 +150,7 @@
                                     <th>نام کاربری</th>
                                     <th>client_key</th>
                                     <th>جزئیات</th>
-                                    <th>حذف</th>
+                                    {{--<th>حذف</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -168,15 +168,15 @@
                                         </a>
                                     </td>
 
-                                    <td>
-                                        <form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >
-                                            @csrf
-                                            <button class="btn btn-sm del-btn"  type="submit">
-                                                حذف
-                                            </button>
+                                    {{--<td>--}}
+                                        {{--<form action=""  onsubmit="return confirm('آیا مطمئن هستید؟')" >--}}
+                                            {{--@csrf--}}
+                                            {{--<button class="btn btn-sm del-btn"  type="submit">--}}
+                                                {{--حذف--}}
+                                            {{--</button>--}}
 
-                                        </form>
-                                    </td>
+                                        {{--</form>--}}
+                                    {{--</td>--}}
                                 </tr>
                                 @endforeach
                                 </tbody>
