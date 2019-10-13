@@ -65,7 +65,7 @@ class UserAuthController extends Controller
   {
     $credentials = [
       'email' => $request->email,
-      'app_password' => $request->password
+      'password' => $request->password
     ];
 
     if (auth()->attempt($credentials)) {

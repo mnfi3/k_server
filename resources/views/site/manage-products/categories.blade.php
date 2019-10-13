@@ -113,7 +113,7 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    {{--<th>آیکون</th>--}}
+                                    <th>آیکون</th>
                                     <th>نام</th>
                                     <th>حذف</th>
                                     <th>ویرایش</th>
@@ -124,7 +124,7 @@
                                 @foreach($categories as $category)
                                 <tr>
                                     <td>{{++$i}}</td>
-                                    {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
+                                    <td><img src="{{asset($category->image)}}" height="55" class="rounded float-right" ></td>
                                     <td class="text-black" >{{$category->name}}</td>
                                     <td>
                                         <form action="{{url('/restaurant/panel/category/delete')}}"  method="post" onsubmit="return confirm('آیا مطمئن هستید؟')" >

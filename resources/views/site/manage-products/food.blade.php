@@ -262,9 +262,10 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    {{--<th>آیکون</th>--}}
+                                    <th>آیکون</th>
                                     <th>نام</th>
                                     <th>دسته بندی</th>
+                                    <th>وضعیت موجودی</th>
                                     <th>ویرایش</th>
                                     <th>حذف</th>
                                 </tr>
@@ -275,11 +276,26 @@
                                 @foreach($categories as $category)
                                     @php($category_counter++)
                                     @foreach($category->products as $product)
-                                        <tr @if($category_counter % 2 == 0) style="background: #e9eee1" @endif>
+                                        <tr @if($product->is_available == 0) style="background: #ff6363;" @elseif($category_counter % 2 == 0) style="background: #ffffff" @elseif($category_counter % 2 == 1) style="background: #eeeeee" @endif>
                                             <td>{{++$i}}</td>
-                                            {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
+                                            <td><img src="{{asset($product->image)}}" height="55" class="rounded float-right" ></td>
                                             <td class="text-black" >{{$product->name}}</td>
                                             <td class="text-black" >{{$category->name}}</td>
+
+
+                                            @if($product->is_available == 1)
+                                                <td>
+                                                    <a class="btn btn-warning del-edit "  href="{{url('/restaurant/panel/food/available', $product->id)}}">
+                                                        تمام شد
+                                                    </a>
+                                                </td>
+                                            @else
+                                                <td class="">
+                                                    <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/food/available', $product->id)}}">
+                                                        موجود شد
+                                                    </a>
+                                                </td>
+                                            @endif
 
                                             <td>
                                                 <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/food-edit', $product->id)}}">

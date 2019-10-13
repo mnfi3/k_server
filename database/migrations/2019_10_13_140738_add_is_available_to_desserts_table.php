@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAppPasswordToUsersTable extends Migration
+class AddIsAvailableToDessertsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddAppPasswordToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('app_password')->nullable()->after('password');
+        Schema::table('desserts', function (Blueprint $table) {
+          $table->boolean('is_available')->nullable()->default(1)->after('image');
         });
     }
 
@@ -25,7 +25,7 @@ class AddAppPasswordToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('desserts', function (Blueprint $table) {
             //
         });
     }

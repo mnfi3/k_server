@@ -187,6 +187,17 @@ class RestaurantPanelController extends Controller
     return back();
   }
 
+  public function productAvailable($id){
+    $product = Product::find($id);
+    if($product->is_available == 1){
+      $product->is_available = 0;
+    }else{
+      $product->is_available = 1;
+    }
+    $product->save();
+    return back();
+  }
+
   public function categories(){
     $categories = Auth::user()->categories;
     return view('site.manage-products.categories', compact('categories'));
@@ -351,6 +362,17 @@ class RestaurantPanelController extends Controller
   public function discountDelete(Request $request){
     $discount = Discount::find($request->discount_id);
     if ($discount->user_id == Auth::user()->id) $discount->delete();
+    return back();
+  }
+
+  public function dessertAvailable($id){
+    $dessert = Dessert::find($id);
+    if($dessert->is_available == 1){
+      $dessert->is_available = 0;
+    }else{
+      $dessert->is_available = 1;
+    }
+    $dessert->save();
     return back();
   }
 

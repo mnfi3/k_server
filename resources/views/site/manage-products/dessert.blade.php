@@ -144,19 +144,39 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    {{--<th>آیکون</th>--}}
+                                    <th>آیکون</th>
                                     <th>نام</th>
-                                    <th>حذف</th>
+                                    <th>وضعیت موجودی</th>
                                     <th>ویرایش</th>
+                                    <th>حذف</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php($i=0)
                                 @foreach($desserts as $dessert)
-                                    <tr>
+                                    <tr @if($dessert->is_available == 0) style="background: #ff6363;" @endif>
                                         <td>{{++$i}}</td>
-                                        {{--<td><img src="{{$currency->filename}}" height="35" class="rounded float-right" alt="{{$currency->name}}"></td>--}}
+                                        <td><img src="{{asset($dessert->image)}}" height="55" class="rounded float-right" ></td>
                                         <td class="text-black" >{{$dessert->name}}</td>
+                                        @if($dessert->is_available == 1)
+                                        <td>
+                                            <a class="btn btn-warning del-edit "  href="{{url('/restaurant/panel/dessert/available', $dessert->id)}}">
+                                                تمام شد
+                                            </a>
+                                        </td>
+                                        @else
+                                            <td class="">
+                                                <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/dessert/available', $dessert->id)}}">
+                                                    موجود شد
+                                                </a>
+                                            </td>
+                                        @endif
+                                        <td>
+                                            <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/dessert-edit', $dessert->id)}}">
+                                                ویرایش
+                                            </a>
+                                        </td>
+
                                         <td>
                                             <form action="{{url('/restaurant/panel/dessert/delete')}}" method="post"  onsubmit="return confirm('آیا مطمئن هستید؟')" >
                                                 @csrf
@@ -167,11 +187,7 @@
 
                                             </form>
                                         </td>
-                                        <td>
-                                            <a class="btn btn-sm del-edit "  href="{{url('/restaurant/panel/dessert-edit', $dessert->id)}}">
-                                                ویرایش
-                                            </a>
-                                        </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>

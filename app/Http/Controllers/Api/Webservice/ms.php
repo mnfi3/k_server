@@ -13,6 +13,7 @@ class ms {
 
   //login
   const LOGIN_FAIL_ERROR = 'ورود به حساب کاربری انجام نشد.لطفا ایمیل و رمز عبور خود را با دقت وارد کنید';
+  const LOGIN_EMAIL_ERROR = 'ورود به حساب کاربری انجام نشد.لطفا ایمیل خود را با دقت وارد کنید';
   const LOGIN_SUCCESS = 'با موفقیت وارد شدید';
   const LOGIN_RETRY = 'شما قبلا وارد حساب کاربری شده اید';
   const MUST_BE_LOGIN = 'لطفا وارد حساب کاربری خود شوید';

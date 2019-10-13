@@ -77,7 +77,6 @@ class AdminController extends Controller
       'image' => $image,
       'email' => $request->email,
       'password' => Hash::make($request->password),
-      'app_password' => Hash::make($request->app_password),
     ]);
 
     $user_kiosk = UserKiosk::create([
@@ -106,13 +105,6 @@ class AdminController extends Controller
         $rest->password = Hash::make($request->password);
       }else{
         return back()->with('mess', 'پسورد وارد شده اشتباه است');
-      }
-    }
-    if(strlen($request->app_password) > 0) {
-      if (strlen($request->app_password) >= 6) {
-        $rest->app_password = Hash::make($request->app_password);
-      }else{
-        return back()->with('mess', 'پسورد اپلیکیشن وارد شده اشتباه است');
       }
     }
 

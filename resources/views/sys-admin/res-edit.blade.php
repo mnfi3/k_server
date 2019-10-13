@@ -135,15 +135,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>پسورد اپلیکیشن (این رمز هنگام ورود کیوسک استفاده خواهد شد)</label>
-                                            <div class="input-group round">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-info"></i>
-                                                </span>
-                                                <input type="password" name="app_password" class="form-control" value="" placeholder="رمز عبور اپلیکیشن">
-                                            </div>
-                                        </div>
+
 
                                         <button type="submit" name="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>

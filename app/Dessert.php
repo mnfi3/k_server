@@ -9,5 +9,5 @@ class Dessert extends Model
 {
   use SoftDeletes;
 
-  protected $fillable = ['user_id', 'name', 'type', 'price', 'image'];
+  protected $fillable = ['user_id', 'name', 'type', 'price', 'image', 'is_available'];
 }

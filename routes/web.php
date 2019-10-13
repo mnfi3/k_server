@@ -31,9 +31,17 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
-//  echo  date('Y-m-d h:i:s');
-  $dateTime = new DateTime('20190815151358');
-  echo $dateTime->format('Y-m-d H:i:s');
+  $restaurant = \App\User::find(1);
+  $categories = $restaurant->categories;
+  foreach ($categories as $category){
+    foreach ($category->products as $product){
+      $product->desserts;
+    }
+  }
+
+  //()->where('is_available', '=', 1)->get()
+
+  return \App\Http\Controllers\Api\Webservice\ws::r(1, ['products' => $categories]);
 });
 
 
@@ -49,6 +57,7 @@ Route::post('/restaurant/panel/insert/food', 'Panel\RestaurantPanelController@in
 Route::get('/restaurant/panel/food-edit/{id}', 'Panel\RestaurantPanelController@productEdit');
 Route::post('/restaurant/panel/food-update', 'Panel\RestaurantPanelController@productUpdate');
 Route::post('/restaurant/panel/food-delete', 'Panel\RestaurantPanelController@productDelete');
+Route::get('/restaurant/panel/food/available/{id}', 'Panel\RestaurantPanelController@productAvailable');
 Route::get('/restaurant/panel/categories', 'Panel\RestaurantPanelController@categories');
 Route::post('/restaurant/panel/category/insert', 'Panel\RestaurantPanelController@categoryInsert');
 Route::get('/restaurant/panel/category-edit/{id}', 'Panel\RestaurantPanelController@categoryEdit');
@@ -59,6 +68,7 @@ Route::post('/restaurant/panel/dessert/insert', 'Panel\RestaurantPanelController
 Route::get('/restaurant/panel/dessert-edit/{id}', 'Panel\RestaurantPanelController@dessertEdit');
 Route::post('/restaurant/panel/dessert/update', 'Panel\RestaurantPanelController@dessertUpdate');
 Route::post('/restaurant/panel/dessert/delete', 'Panel\RestaurantPanelController@dessertDelete');
+Route::get('/restaurant/panel/dessert/available/{id}', 'Panel\RestaurantPanelController@dessertAvailable');
 
 //Reports
 Route::get('/restaurant/panel/today-report', 'Panel\RestaurantPanelController@todayReport');
