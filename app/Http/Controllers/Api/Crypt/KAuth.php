@@ -29,6 +29,10 @@ class KAuth {
     $token_key = $tm->getKeyFromToken($token);
     if (strlen($token_key) > 2) {
       self::$kiosk = Kiosk::where('token', '=', $token_key)->first();
+      if (self::$kiosk != null){
+        self::$kiosk->version = $request->header('k-version');
+        self::$kiosk->save();
+      }
     }
   }
 }

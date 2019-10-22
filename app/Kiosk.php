@@ -10,7 +10,7 @@ class Kiosk extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'name', 'user_name', 'password', 'client_key',  'token'
+    'name', 'user_name', 'password', 'client_key',  'token', 'version'
   ];
 
   protected $hidden = [
