@@ -6,6 +6,7 @@ use App\Discount;
 use App\Http\Controllers\Api\Crypt\KAuth;
 use App\Http\Controllers\Api\Webservice\ms;
 use App\Http\Controllers\Api\Webservice\ws;
+use App\Http\Controllers\Util\Pdate;
 use App\Order;
 use App\OrderContent;
 use App\OrderContentDessert;
@@ -111,6 +112,7 @@ class RestaurantController extends Controller
 
   public function  orders(Request $request){
     $orders = json_decode($request->orders);
+    $pdate = new Pdate();
     $orders_ids = array();
     foreach ($orders as $data) {
       $dateTime = new DateTime($data->time);
@@ -146,7 +148,7 @@ class RestaurantController extends Controller
         'serial_transaction' => $data->serial_transaction,
         'terminal_no' => $data->terminal_no,
         'trace_number' => $data->trace_number,
-        'transaction_date' => $data->transaction_date,
+        'transaction_date' => $pdate->toGregorian($data->transaction_date),
         'transaction_time' => $data->transaction_time,
       ]);
 

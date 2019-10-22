@@ -19,7 +19,7 @@ class AddPaymentDetailsToOrdersTable extends Migration
             $table->string('serial_transaction')->nullable()->after('req_id');
             $table->string('terminal_no')->nullable()->after('serial_transaction');
             $table->string('trace_number')->nullable()->after('terminal_no');
-            $table->string('transaction_date')->nullable()->after('trace_number');
+            $table->date('transaction_date')->nullable()->after('trace_number');
             $table->string('transaction_time')->nullable()->after('transaction_date');
         });
     }

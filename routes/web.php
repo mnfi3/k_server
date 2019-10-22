@@ -16,6 +16,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test1', function () {
+  $date = new \App\Http\Controllers\Util\Pdate();
+  return $date->toGregorian('1398/01/24');
+});
+
 
 
 //auth routes
