@@ -13,12 +13,11 @@
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('single-page.home');
 });
 
 Route::get('/test1', function () {
-  $date = new \App\Http\Controllers\Util\Pdate();
-  return $date->toGregorian('1398/01/24');
+
 });
 
 
@@ -36,17 +35,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::get('/test', function () {
-  $restaurant = \App\User::find(1);
-  $categories = $restaurant->categories;
-  foreach ($categories as $category){
-    foreach ($category->products as $product){
-      $product->desserts;
-    }
-  }
 
-  //()->where('is_available', '=', 1)->get()
-
-  return \App\Http\Controllers\Api\Webservice\ws::r(1, ['products' => $categories]);
 });
 
 
@@ -56,6 +45,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/restaurant/panel', 'Panel\RestaurantPanelController@index');
+Route::get('/restaurant/panel/latest-orders', 'Panel\RestaurantPanelController@latestOrders');//api
 Route::get('/restaurant/panel/order/deliver/{id}', 'Panel\RestaurantPanelController@orderDelivered');
 Route::get('/restaurant/panel/manage-foods', 'Panel\RestaurantPanelController@products');
 Route::post('/restaurant/panel/insert/food', 'Panel\RestaurantPanelController@insertProduct');
@@ -68,12 +58,12 @@ Route::post('/restaurant/panel/category/insert', 'Panel\RestaurantPanelControlle
 Route::get('/restaurant/panel/category-edit/{id}', 'Panel\RestaurantPanelController@categoryEdit');
 Route::post('/restaurant/panel/category/update', 'Panel\RestaurantPanelController@categoryUpdate');
 Route::post('/restaurant/panel/category/delete', 'Panel\RestaurantPanelController@categoryDelete');
-Route::get('/restaurant/panel/manage-dessert', 'Panel\RestaurantPanelController@desserts');
-Route::post('/restaurant/panel/dessert/insert', 'Panel\RestaurantPanelController@dessertInsert');
-Route::get('/restaurant/panel/dessert-edit/{id}', 'Panel\RestaurantPanelController@dessertEdit');
-Route::post('/restaurant/panel/dessert/update', 'Panel\RestaurantPanelController@dessertUpdate');
-Route::post('/restaurant/panel/dessert/delete', 'Panel\RestaurantPanelController@dessertDelete');
-Route::get('/restaurant/panel/dessert/available/{id}', 'Panel\RestaurantPanelController@dessertAvailable');
+
+Route::get('/restaurant/panel/manage-side', 'Panel\RestaurantPanelController@sides');
+Route::post('/restaurant/panel/side/insert', 'Panel\RestaurantPanelController@sideInsert');
+Route::get('/restaurant/panel/side-edit/{id}', 'Panel\RestaurantPanelController@sideEdit');
+Route::post('/restaurant/panel/side/update', 'Panel\RestaurantPanelController@sideUpdate');
+Route::post('/restaurant/panel/side/delete', 'Panel\RestaurantPanelController@sideDelete');
 
 //Reports
 Route::get('/restaurant/panel/today-report', 'Panel\RestaurantPanelController@todayReport');
@@ -105,7 +95,6 @@ Route::post('/restaurant/panel/profile/password/update', 'Panel\RestaurantPanelC
 
 
 //system admin sections
-
 Route::get('/admin/home', 'Admin\AdminController@index');
 Route::post('/admin/kiosk/insert', 'Admin\AdminController@kioskInsert');
 Route::get('/admin/kiosk-edit/{id}', 'Admin\AdminController@kioskEdit');

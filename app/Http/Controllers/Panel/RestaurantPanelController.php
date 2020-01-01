@@ -10,7 +10,6 @@ use App\Http\Controllers\Util\Pnum;
 use App\Http\Controllers\Util\Uploader;
 use App\Order;
 use App\Product;
-use App\ProductDessert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +30,13 @@ class RestaurantPanelController extends Controller
     return view('site.latest-orders', compact('orders'));
   }
 
+  //ajax api
+  public function latestOrders(){
+    $user = Auth::user();
+    $orders = $user->restaurantOrders()->orderBy('id', 'asc')->where('is_delivered', '=', 0)->get();
+    return json_encode($orders, JSON_UNESCAPED_UNICODE);
+  }
+
   public function orderDelivered($id){
     $order = Order::find($id);
     $user = Auth::user();
@@ -43,59 +49,28 @@ class RestaurantPanelController extends Controller
   public function products(){
     $user = Auth::user();
     $categories = $user->categories;
-    $desserts = $user->desserts;
-    return view('site.manage-products.food', compact('categories', 'desserts'));
+    return view('site.manage-products.food', compact('categories'));
   }
 
   public function insertProduct(Request $request){
     $user = Auth::user();
-    $desserts = $user->desserts;
-    $ids =  $request->desserts_id;
-    $categories = $user->categories;
-
-    //check dessert ids and category_id validity
-    $is_exist = false;
-    foreach ($desserts as $dessert){
-      foreach ($ids as $id) {
-        if ($dessert->id == $id){
-          $is_exist = true;
-          break;
-        }
-      }
-      if ($is_exist == true) break;
-    }
-    if ($is_exist == false) return back();
-
-    $is_exist = false;
-
-    foreach ($categories as $category) {
-      if ($category->id == $request->category_id) {
-        $is_exist = true;
-      }
-    }
-    if ($is_exist == false) return back();
-
-
-
-
+    $category = Category::find($request->category_id);
+    if ($category->user_id != $user->id) return back();
+    is_null($request->is_suggest) ? $is_suggest = 0 : $is_suggest =1;
 
     $image = Uploader::image($request->file('image'));
     $product = Product::create([
       'user_id' => $user->id,
       'category_id' => $request->category_id,
+      'is_side' => 0,
       'name' => $request->name,
       'price' => $request->price,
       'discount_percent' => $request->discount_percent,
       'description' => $request->description,
       'image' => $image,
+      'is_suggest' => $is_suggest,
+      'is_available' => 1,
     ]);
-
-    foreach ($ids as $id) {
-      $product_dessert = ProductDessert::create([
-        'product_id' => $product->id,
-        'dessert_id' => $id,
-      ]);
-    }
 
     return back();
   }
@@ -104,19 +79,9 @@ class RestaurantPanelController extends Controller
     $user = Auth::user();
     $categories = $user->categories;
     $products = $user->products()->orderBy('id', 'desc')->get();
-    $desserts = $user->desserts;
     $product = Product::find($id);
     if ($product->user_id != $user->id) return back();
-    foreach ($desserts as $dessert){
-      $dessert->is_exist = false;
-      foreach ($product->desserts as $pd) {
-        if ($dessert->id == $pd->id){
-          $dessert->is_exist = true;
-          break;
-        }
-      }
-    }
-    return view('site.manage-products.food-edit',compact('product', 'categories', 'products', 'desserts'));
+    return view('site.manage-products.food-edit',compact('product', 'categories', 'products'));
   }
 
   public function productUpdate(Request $request){
@@ -128,56 +93,17 @@ class RestaurantPanelController extends Controller
     $product->name = $request->name;
     $product->price = $request->price;
     $product->discount_percent = $request->discount_percent;
+    $product->description = $request->description;
+    is_null($request->is_suggest) ? $product->is_suggest = 0 : $product->is_suggest = 1;
     if($request->hasFile('image')) {
       $image = Uploader::image($request->file('image'));
       $product->image = $image;
     }
     $product->save();
 
-
-
-    //update desserts
-    $ids = $request->desserts_id;
-    $current_product_desserts = ProductDessert::where('product_id', '=', $product->id)->get();
-    if (is_null($ids)){
-      foreach ($current_product_desserts as $item){
-        $item->forceDelete();
-      }
-      return back();
-    }
-
-    //remove unchecked desserts
-    foreach ($current_product_desserts as $product_dessert) {
-      $is_exist = false;
-      foreach ($ids as $id){
-        if ($id == $product_dessert->dessert_id){
-          $is_exist = true;
-          break;
-        }
-      }
-      if ($is_exist == false){
-        $product_dessert->forceDelete();
-      }
-    }
-
-    //add new checked desserts
-    foreach ($ids as $id){
-      $is_exist = false;
-      foreach ($current_product_desserts as $product_dessert) {
-        if ($id == $product_dessert->dessert_id){
-          $is_exist = true;
-          break;
-        }
-      }
-      if ($is_exist == false){
-        $pd = ProductDessert::create([
-          'product_id' => $product->id,
-          'dessert_id' => $id,
-        ]);
-      }
-    }
     return back();
   }
+
 
   public function productDelete(Request $request){
     $product = Product::find($request->product_id);
@@ -189,6 +115,7 @@ class RestaurantPanelController extends Controller
 
   public function productAvailable($id){
     $product = Product::find($id);
+    if ($product->user_id != Auth::user()->id) return back();
     if($product->is_available == 1){
       $product->is_available = 0;
     }else{
@@ -239,58 +166,64 @@ class RestaurantPanelController extends Controller
     return back();
   }
 
-  public function desserts(){
+  public function sides(){
     $user = Auth::user();
-    $desserts = $user->desserts;
-    return view('site.manage-products.dessert', compact('desserts'));
+    $sides = $user->sides()->orderBy('id', 'desc')->get();
+    return view('site.manage-products.sides', compact('sides'));
   }
 
-  public function dessertInsert(Request $request){
+  public function sideInsert(Request $request){
+    $user = Auth::user();
     $image = Uploader::image($request->file('image'));
-    Dessert::create([
-      'user_id' => Auth::user()->id,
+    $side = Product::create([
+      'user_id' => $user->id,
+      'category_id' => 0,
+      'is_side' => 1,
       'name' => $request->name,
-      'type' => $request->type,
       'price' => $request->price,
+      'discount_percent' => 0,
+      'description' => '',
       'image' => $image,
+      'is_suggest' => 0,
+      'is_available' => 1,
     ]);
     return back();
   }
 
-  public function dessertEdit($id){
-    $dessert = Dessert::find($id);
-    if ($dessert->user_id != Auth::user()->id) return back();
-    return view('site.manage-products.dessert-edit', compact('dessert'));
+  public function sideEdit($id){
+    $side = Product::find($id);
+    if(!$this->isForUser($side)) return back();
+    return view('site.manage-products.sides-edit', compact('side'));
   }
 
-  public function dessertUpdate(Request $request){
-    $dessert = Dessert::find($request->dessert_id);
-    if ($dessert->user_id != Auth::user()->id) return back();
-    $dessert->name = $request->name;
-    $dessert->price = $request->price;
-    $dessert->type = $request->type;
+  public function sideUpdate(Request $request){
+    $side = Product::find($request->id);
+    if (!$this->isForUser($side)) return back();
+    $side->name = $request->name;
+    $side->price = $request->price;
     if ($request->hasFile('image')){
-      $dessert->image = Uploader::image($request->file('image'));
+      $side->image = Uploader::image($request->file('image'));
     }
-    $dessert->save();
+    $side->save();
     return back();
   }
 
-  public function dessertDelete(Request $request){
-    $dessert = Dessert::find($request->dessert_id);
-    if ($dessert->user_id != Auth::user()->id) return back();
-    $dessert->delete();
+  public function sideDelete(Request $request){
+    $side = Product::find($request->side_id);
+    if (!$this->isForUser($side)) return back();
+    $side->delete();
     return back();
   }
 
   public function todayReport(){
     $user = Auth::user();
-    $orders = DB::select("select * from orders where DATE(`local_time`) = CURDATE() and is_delivered = 1");
+    $orders = DB::select("select * from orders where user_id='$user->id' and DATE(`local_time`) = CURDATE() and is_delivered = 1");
     $orders = Order::hydrate($orders);
     return view('site.report.today', compact('orders'));
   }
 
   public function report(Request $request){
+    $user = Auth::user();
     $from_date = Pnum::toLatin($request->from_date);
     $to_date = Pnum::toLatin($request->to_date);
     if (strlen($from_date) < 5 || strlen($to_date) < 5) {
@@ -309,10 +242,10 @@ class RestaurantPanelController extends Controller
     $date->setTime(23, 59, 59);
     $to_date = $date->format('Y-m-d H:i:s');
 
-//    return $from_date;
+//    return ['from'=>$from_date, 'to'=>$to_date];
 
-    $orders = Order::where('local_time', '>=', $from_date)->where('local_time', '<=', $to_date)->where('is_delivered', '=', 1)->paginate(40);
-
+    $orders = Order::where('user_id', '=', $user->id)->where('local_time', '>=', $from_date)->where('local_time', '<=', $to_date)->where('is_delivered', '=', 1)->paginate(40);
+//  return json_encode($orders);
 //    $orders = Order::hydrate($orders);
     return view('site.report.all', compact('orders', 'from_date', 'to_date'))->with('from_date', $from_date)->with('to_date', $to_date);
   }
@@ -365,16 +298,7 @@ class RestaurantPanelController extends Controller
     return back();
   }
 
-  public function dessertAvailable($id){
-    $dessert = Dessert::find($id);
-    if($dessert->is_available == 1){
-      $dessert->is_available = 0;
-    }else{
-      $dessert->is_available = 1;
-    }
-    $dessert->save();
-    return back();
-  }
+
 
   public function profileImage(){
     return view('site.profile.image');
@@ -425,6 +349,21 @@ class RestaurantPanelController extends Controller
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+  private function isForUser($obj){
+    if (Auth::user()->id != $obj->user_id) return false;
+    return true;
+  }
 
 
 

@@ -4,6 +4,22 @@ namespace App\Http\Controllers\Util;
 
 
 class Pdate {
+
+
+
+  public static function persianTime($dateTime, $text=false) {
+    if (strlen($dateTime) < 4) return '';
+    $date = new PDate();
+    $d = explode(' ', $dateTime)[0];
+    $time = explode(' ', $dateTime)[1];
+    $result = ['date' => $date->toPersian($d, 'Y/m/d'), 'time' => $time];
+
+    if ($text) return $time . ' # ' . $date->toPersian($d, 'Y/m/d') ;
+    else return $result;
+  }
+
+
+
   var $persian_month_names=array(
     '01'=>'&#1601;&#1585;&#1608;&#1585;&#1583;&#1740;&#1606;',
     '02'=>'&#1575;&#1585;&#1583;&#1740;&#1576;&#1607;&#1588;&#1578;',

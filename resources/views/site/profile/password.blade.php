@@ -52,7 +52,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-lock"></i>
                                                 </span>
-                                                <input type="password" name="new_pass1" class="form-control" value="" required placeholder="رمز جدید را وارد کنید (حداقل 6 گکاراکتر)">
+                                                <input type="password" name="new_pass1" class="form-control" value="" required placeholder="رمز جدید را وارد کنید (حداقل 6 کاراکتر)">
                                             </div>
                                         </div>
                                         <div class="form-group">

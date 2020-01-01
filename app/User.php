@@ -52,7 +52,7 @@ class User extends Authenticatable {
     return $this->hasMany('App\Product');
   }
 
-  public function desserts(){
-    return $this->hasMany('App\Dessert');
+  public function sides(){
+    return $this->hasMany('App\Product')->where('is_side', '=', 1);
   }
 }

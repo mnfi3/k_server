@@ -108,7 +108,7 @@
 
 
                                         <div class="form-group">
-                                            <label for="price">درصد تخفیف (در صورتی که می خواهید برای این غذا به صورت تکی تخفیف اعمال شود درصد تخفیف را وارد کنید)</label>
+                                            <label for="price">درصد تخفیف (در صورتی که می خواهید برای این غذا به صورت تکی تخفیف اعمال شود درصد تخفیف را انتخاب کنید)</label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
@@ -118,100 +118,13 @@
                                                         <option value="{{$i}}" >{{$i}}</option>
                                                     @endfor
                                                 </select>
-                                                {{--<input type="number"  name="discount_percent" class="form-control" value="0" placeholder="درصد تخفیف وارد شود">--}}
                                             </div>
                                         </div>
 
-                                        <div class="form-group  ">
-                                            <label for="price">دسرهای همراه این غذا</label>
-                                            <div class="row selection" style="background-color: rgba(244,255,167,0.84); border: 2px #c4c4c4 solid; border-radius: 4px; margin: 0px 50px;padding: 10px;text-align: center">
-
-
-                                                <div class="col-sm-3">
-                                                    <div class=" d-flex flex-wrap align-items-stretch justify-content-start " style="">
-
-                                                        @foreach($desserts as $dessert)
-                                                        <div class=" p-1 mr-2 ">
-                                                            <span class="custom-control  " style="">
-                                                                <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="desserts_id[]" value="{{$dessert->id}}">
-                                                                <label class="custom-control-label text-dark set-font" for="defaultUnchecked">{{$dessert->name}}</label>
-                                                            </span>
-                                                        </div>
-                                                        @endforeach
-
-                                                    </div>
-                                                </div>
-
-
-
-
-                                                {{--<div class="col-sm-3">--}}
-                                                    {{--<div class=" d-flex flex-wrap align-items-stretch justify-content-start " style="">--}}
-                                                        {{--<div class="">--}}
-                                                   {{--<span class="custom-control " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="col-sm-3">--}}
-                                                    {{--<div class=" d-flex flex-wrap align-items-stretch justify-content-start " style="">--}}
-                                                        {{--<div class="">--}}
-                                                   {{--<span class="custom-control " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="col-sm-3">--}}
-                                                    {{--<div class=" d-flex flex-wrap align-items-stretch justify-content-start " style="">--}}
-                                                        {{--<div class="">--}}
-                                                   {{--<span class="custom-control " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class=" p-1 mr-2 ">--}}
-                                                   {{--<span class="custom-control  " style="">--}}
-                                                           {{--<input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="fields[]" value="">--}}
-                                                           {{--<label class="custom-control-label text-dark set-font" for="defaultUnchecked">پیاز</label>--}}
-                                                  {{--</span>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-
+                                        <div class="form-group">
+                                            <label for="price">آیا میخواهید این غذا به عنوان غذای پیشنهادی اضافه شود؟</label>
+                                            <div class="input-group round">
+                                                <input type="checkbox" name="is_suggest">
                                             </div>
                                         </div>
 
@@ -265,6 +178,9 @@
                                     <th>آیکون</th>
                                     <th>نام</th>
                                     <th>دسته بندی</th>
+                                    <th>قیمت</th>
+                                    <th>درصد تخفیف</th>
+                                    <th>غذای پیشنهادی</th>
                                     <th>وضعیت موجودی</th>
                                     <th>ویرایش</th>
                                     <th>حذف</th>
@@ -281,6 +197,10 @@
                                             <td><img src="{{asset($product->image)}}" height="55" class="rounded float-right" ></td>
                                             <td class="text-black" >{{$product->name}}</td>
                                             <td class="text-black" >{{$category->name}}</td>
+                                            <td class="text-black" >{{number_format($product->price)}} تومان </td>
+                                            <td class="text-black" >{{$product->discount_percent}}  </td>
+
+                                            <td class="text-black" >@if($product->is_suggest == 1) بله @else خیر  @endif</td>
 
 
                                             @if($product->is_available == 1)

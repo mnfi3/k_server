@@ -53,18 +53,19 @@
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
+                                    <th>شماره سفارش</th>
                                     <th>جزئیات</th>
                                     <th>زمان</th>
-                                    <th>قیمت</th>
-                                    <th>قیمت با تخفیف(پرداخت شده)</th>
+                                    <th>بیرون بر</th>
+                                    <th>مبلغ پرداخت شده</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php($i=0)
                                 @foreach($orders as $order)
                                     <tr>
-                                        <td class="text-black"> {{++$i}} </td>
-{{--                                        <td class="text-black" >{{$order->order_number}}</td>--}}
+                                        <td> {{++$i}} </td>
+                                        <td class="text-black">{{$order->order_number}}</td>
                                         <td class="text-black" style="max-width: 280px">
 
                                             <table class="table table-hover" id="data-table">
@@ -73,40 +74,33 @@
                                                     <th>ردیف</th>
                                                     <th>نام</th>
                                                     <th>تعداد</th>
+                                                    <th>جمع</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @php($j=0)
-                                                @foreach($order->content as $order_content)
-                                                    <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
+                                                @foreach($order->items as $item)
+                                                    <tr class=""
+                                                        style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
                                                         <td>{{++$j}}</td>
-                                                        <td class="text-black" style="max-width: 160px">{{$order_content->product->name}} </td>
-                                                        <td>{{$order_content->count}} عدد</td>
+                                                        <td class="text-black"
+                                                            style="max-width: 160px">{{$item->product->name}} </td>
+                                                        <td>{{$item->count}} عدد</td>
+                                                        <td> تومان {{number_format($item->cost)}}</td>
                                                     </tr>
-                                                    @foreach($order_content->desserts as $dessert_item)
-                                                        <tr class="" style="background-color: @if($j % 2 == 0 ) #ff5c1a @else #ffcf14 @endif">
-                                                            <td>{{++$j}}</td>
-                                                            <td class="text-black" style="max-width: 160px">{{$dessert_item->dessert->name}}</td>
-                                                            <td>
-                                                                {{$order_content->count}} عدد
-                                                            </td>
-                                                        </tr>
                                                 @endforeach
-                                                @endforeach
+                                                </tbody>
                                             </table>
-
-
-
-
                                         </td>
-                                        @php($date = new \App\Http\Controllers\Util\Pdate())
-                                        @php($d = explode(' ', $order->local_time)[0])
-                                        @php($time = explode(' ', $order->local_time)[1])
 
+                                        <td class="text-black">{{\App\Http\Controllers\Util\Pdate::persianTime($order->local_time, true)}} </td>
+                                        @if($order->is_out == 0)
+                                            <td class="text-black">خیر</td>
+                                        @else
+                                            <td class="text-black">بله</td>
+                                        @endif
+                                        <td class="text-black">{{number_format($order->d_cost)}} تومان</td>
 
-                                        <td class="text-black" >{{$time}} --- {{$date->toPersian($d, 'Y/m/d')}}  </td>
-                                        <td class="text-black" >{{number_format($order->cost)}} تومان</td>
-                                        <td class="text-black" >{{number_format($order->d_cost)}} تومان</td>
                                     </tr>
                                 @endforeach
                             </table>

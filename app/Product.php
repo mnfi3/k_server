@@ -10,11 +10,9 @@ class Product extends Model
   use SoftDeletes;
 
   protected $fillable = [
-    'user_id', 'category_id', 'name', 'price', 'discount_percent', 'description', 'image', 'is_available'
+    'user_id', 'category_id', 'is_side', 'name', 'price', 'discount_percent', 'description', 'image', 'is_suggest', 'is_available'
   ];
 
 
-  public function desserts(){
-    return $this->belongsToMany('App\Dessert', 'product_desserts');
-  }
+
 }

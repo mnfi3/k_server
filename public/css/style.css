@@ -291,13 +291,7 @@ table th{
 }
 table td{
   color: #000;
-  font-size: 1.6rem !important;
-  font-weight: 600;
-}
-
-label{
-  font-size: 1.6rem !important;
-  font-weight: 600;
+  font-size: 1.2rem !important;
 }
 
 @keyframes neon {
@@ -1391,6 +1385,21 @@ body.sidebar-extra .metismenu>li>a.dropdown-toggle:before {
     transition: ease 0.3s all;
     left: 15px
 }
+
+.portlet-body li{
+  padding: 15px;
+  font-size: 1.3rem;
+  background-color: #c4c4c4;
+  color: black;
+  border-bottom: 2px #721c24 solid ;
+}
+.portlet-body li a{
+  color: black;
+}
+.portlet-body li:hover{
+  background-color: white;
+  font-size: 1.6rem;
+}
 .buttons-box.toggle.in{
     width: auto;
 }
@@ -1470,6 +1479,7 @@ body.sidebar-extra .metismenu>li>a.dropdown-toggle:before {
     bottom: 0;
     width: 100%;
     height: 100%;
+    background: url(../images/bg/login-bg.jpg) center top;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;

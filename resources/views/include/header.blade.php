@@ -37,9 +37,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{url('/restaurant/panel/manage-dessert')}}" class="">
+                            <a href="{{url('/restaurant/panel/manage-side')}}" class="">
                                 <i class="icon-clock"></i>
-                                <span> پیش غذاها و مخلفات</span>
+                                <span>  مخلفات و همراه غذاها</span>
                             </a>
                         </li>
                     </ul>

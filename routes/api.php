@@ -17,6 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/restaurant/panel/latest-orders', 'Panel\RestaurantPanelController@latestOrders');
+//Route::get('/test', function (){
+//  foreach (getallheaders() as $name => $value) {
+//    echo "$name: $value\n"."<hr>";
+//  }
+//});
+
 
 //user auth routes
 Route::post('v1/login', 'Api\Auth\UserAuthController@login');
@@ -57,8 +64,7 @@ Route::get('/kiosk-token', function (Request $request){
 
 
 
-Route::get('/test2', function (Request $request){
-});
+Route::get('/test2', function (Request $request){});
 
 
 

@@ -14,8 +14,8 @@ class Order extends Model
     'pan', 'req_id', 'serial_transaction', 'terminal_no', 'trace_number', 'transaction_date', 'transaction_time'
   ];
 
-  public function content(){
-    return $this->hasMany('App\OrderContent');
+  public function items(){
+    return $this->hasMany('App\OrderItem');
   }
   public function discount(){
     return $this->belongsTo('App\Dessert');
