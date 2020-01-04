@@ -242,10 +242,8 @@ class RestaurantPanelController extends Controller
     $date->setTime(23, 59, 59);
     $to_date = $date->format('Y-m-d H:i:s');
 
-//    return ['from'=>$from_date, 'to'=>$to_date];
 
     $orders = Order::where('user_id', '=', $user->id)->where('local_time', '>=', $from_date)->where('local_time', '<=', $to_date)->where('is_delivered', '=', 1)->paginate(40);
-//  return json_encode($orders);
 //    $orders = Order::hydrate($orders);
     return view('site.report.all', compact('orders', 'from_date', 'to_date'))->with('from_date', $from_date)->with('to_date', $to_date);
   }
