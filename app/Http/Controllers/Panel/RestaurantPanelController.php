@@ -310,6 +310,18 @@ class RestaurantPanelController extends Controller
     return back();
   }
 
+  public function profileDescription(){
+    $description = Auth::user()->description;
+    return view('site.profile.description',compact('description'));
+  }
+
+  public function profileDescriptionUpdate(Request $request){
+    $user = Auth::user();
+    $user->description = $request->description;
+    $user->save();
+    return back();
+  }
+
   public function address(){
     $user = Auth::user();
     return view('site.profile.address', compact('user'));

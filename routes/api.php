@@ -41,6 +41,7 @@ Route::get('v1/kiosk/users', 'Api\KioskController@users');
 
 
 //restaurant apis
+Route::get('v1/restaurant/info', 'Api\RestaurantController@restaurantInfo');
 Route::get('v1/restaurant/products', 'Api\RestaurantController@products');
 Route::post('v1/restaurant/discount-validate', 'Api\RestaurantController@discountValidate');
 //Route::post('v1/restaurant/order', 'Api\RestaurantController@order');

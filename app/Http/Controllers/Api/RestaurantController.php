@@ -24,6 +24,11 @@ class RestaurantController extends Controller
   }
 
 
+  public function restaurantInfo(){
+    $user = Auth::user();
+    return ws::r(1, $user);
+  }
+
   public function products(){
     $restaurant = Auth::user();
     $categories = $restaurant->categories;

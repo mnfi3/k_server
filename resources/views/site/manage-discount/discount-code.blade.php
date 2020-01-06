@@ -48,12 +48,12 @@
                                     <div class="form-body">
 
                                         <div class="form-group">
-                                            <label>کد </label>
+                                            <label>کد تخفیف(فقط عدد) </label>
                                             <div class="input-group round">
                                                 <span class="input-group-addon">
                                                     <i class="icon-info"></i>
                                                 </span>
-                                                <input type="text" name="code"  class="form-control" value="" placeholder="مثل : yalda98" required>
+                                                <input type="number" name="code"  class="form-control" value="" placeholder="مثل : 225454" required>
                                             </div>
                                         </div>
                                         <div class="form-group">

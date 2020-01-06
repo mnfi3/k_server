@@ -79,6 +79,8 @@ Route::post('/restaurant/panel/discount/delete', 'Panel\RestaurantPanelControlle
 //Profile
 Route::get('/restaurant/panel/profile/image', 'Panel\RestaurantPanelController@profileImage');
 Route::post('/restaurant/panel/profile/image/insert', 'Panel\RestaurantPanelController@profileImageInsert');
+Route::get('/restaurant/panel/profile/description', 'Panel\RestaurantPanelController@profileDescription');
+Route::post('/restaurant/panel/profile/description-update', 'Panel\RestaurantPanelController@profileDescriptionUpdate');
 Route::get('/restaurant/panel/profile/address', 'Panel\RestaurantPanelController@address');
 Route::post('/restaurant/panel/profile/address/update', 'Panel\RestaurantPanelController@addressUpdate');
 

@@ -86,6 +86,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{url('/restaurant/panel/profile/description')}}" class="">
+                                <i class="icon-picture"></i>
+                                <span> متن خوش آمد گویی </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{url('/restaurant/panel/profile/address')}}" class="">
                                 <i class="icon-book-open"></i>
                                 <span> آدرس و تلفن </span>
